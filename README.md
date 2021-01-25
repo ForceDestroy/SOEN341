@@ -6,9 +6,9 @@
 This goal of this project is to create an application that is a clone of the common social platform Instagram. The core features implemented in this application will be the ability for user to post pictures each with a caption. Users will also have the ability to follow other users and leave comments on posted pictures. 
 
 ## Technologies
-* ASP.NET
-* JavaScript
-* SQL Server
+* ASP.NET (C#)
+* Angular JS
+* MySQL
 
 
 ## Team Members
@@ -16,8 +16,5 @@ This goal of this project is to create an application that is a clone of the com
 * Rayan Abou ()
 * Vejay Thanamjeyasingam ()
 * Abdul Raja (abdulRdev)
-* Jon -----------
-* -------
-
-
-
+* Jonathan -----------
+* ------
