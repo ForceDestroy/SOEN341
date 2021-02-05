@@ -17,6 +17,10 @@ namespace Server.Models
         public int numLikes { get; set; }
         public int numHearts { get; set; }
 
+        // Reactions List
+        public List<User> likesList { get; set; }
+        public List<User> heartsList { get; set; }
+
         public Post()
         {
             this.user = null;
@@ -27,11 +31,14 @@ namespace Server.Models
             this.numLikes = 0;
             this.numHearts = 0;
 
+            this.likesList = null;
+            this.heartsList = null;
+
             // Increase the post count
             this.user.postCount++;
         }
 
-        public Post(User user, string image, List<Comment> comments, int numLikes, int numHearts)
+        public Post(User user, string image, List<Comment> comments, int numLikes, int numHearts, List<User> likesList, List<User> heartsList)
         {
             this.user = user;
             this.postId = $"{this.user.userId}-{this.user.postCount}";
@@ -40,6 +47,9 @@ namespace Server.Models
 
             this.numLikes = numLikes;
             this.numHearts = numHearts;
+
+            this.likesList = likesList;
+            this.heartsList = heartsList;
 
             // Increase the post count
             this.user.postCount++;
