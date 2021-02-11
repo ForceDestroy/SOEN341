@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Server.Services;
 
 namespace Server
 {
@@ -26,12 +27,15 @@ namespace Server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            // For compatibility issues if needed
+            //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
+            services.AddSingleton<IUserServices, UserServices>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Server", Version = "v1" });
             });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +47,13 @@ namespace Server
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Server v1"));
             }
+            else
+            {
+                // Enforces HTTPS requests from the client side
+                app.UseHsts();
+            }
 
+            // Bounces HTTP requests to HTTPS
             app.UseHttpsRedirection();
 
             app.UseRouting();
