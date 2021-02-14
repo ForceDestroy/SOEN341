@@ -5,22 +5,28 @@ import { Routes, RouterModule } from '@angular/router';
 
 //Components
 import { AppComponent } from './app.component';
-import { ProfileComponent } from './profile/profile.component';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './authentication/login/login.component';
-import { RegisterComponent } from './authentication/register/register.component';
+
+//Modules
+import { AuthenticationModule } from './authentication/authentication.module';
+import { HomeModule } from './home/home.module';
+import { ProfileModule } from './profile/profile.module';
+
+const appRoutes: Routes = [
+  {path: 'auth', loadChildren: () => AuthenticationModule},
+  {path: 'home', loadChildren: () => HomeModule},
+  {path: 'profile', loadChildren: () => ProfileModule},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ProfileComponent,
-    HomeComponent,
-    LoginComponent,
-    RegisterComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule,
+    RouterModule.forRoot(
+      appRoutes,
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
