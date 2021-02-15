@@ -26,9 +26,6 @@ namespace Server.Models
 
             this.numLikes = 0;
             this.numHearts = 0;
-
-            // Increase the post count
-            this.user.postCount++;
         }
 
         public Post(User user, string image, List<Comment> comments, int numLikes, int numHearts)

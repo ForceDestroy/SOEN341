@@ -13,7 +13,7 @@ namespace Server.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserServices _services;
+        private readonly IUserServices _services = new UserServices();
 
 
         [HttpPost]
