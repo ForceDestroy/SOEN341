@@ -17,7 +17,7 @@ namespace Server.Models
         public string profilePicture { get; set; }
         
         // Social info
-        public List<Follower> followers { get; set; }
+        public List<MiniUser> followers { get; set; }
         public List<Post> posts { get; set; }
 
         // Post Tracking
@@ -37,7 +37,7 @@ namespace Server.Models
             this.postCount = 0;
         }
 
-        public User(string username, string password, long userId, string name, string profilePicture, List<Follower> followers, List<Post> posts, int postCount)
+        public User(string username, string password, long userId, string name, string profilePicture, List<MiniUser> followers, List<Post> posts, int postCount)
         {
             this.username = username;
             this.password = password;
