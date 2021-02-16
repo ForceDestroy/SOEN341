@@ -12,6 +12,7 @@ namespace Server.Models
         public string postId { get; set; }
         public string image { get; set; }
         public List<Comment> comments { get; set; }
+        public DateTime date { get; set; }
 
         // Metrics
         public List<MiniUser> likes { get; set; }
@@ -23,17 +24,19 @@ namespace Server.Models
             this.postId = null;
             this.image = null;
             this.comments = null;
+            this.date = new DateTime();
 
             this.likes = null;
             this.hearts = null;
         }
 
-        public Post(User user, string image, List<Comment> comments, List<MiniUser> likes, List<MiniUser> hearts)
+        public Post(User user, string image, List<Comment> comments, DateTime date, List<MiniUser> likes, List<MiniUser> hearts)
         {
             this.user = user;
             this.postId = $"{this.user.userId}-{this.user.postCount}";
             this.image = image;
             this.comments = comments;
+            this.date = date;
 
             this.likes = likes;
             this.hearts = hearts;

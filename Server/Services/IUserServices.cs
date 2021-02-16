@@ -9,6 +9,6 @@ namespace Server.Services
     interface IUserServices
     {
         User AddUserItems(User user);
-        Dictionary<string, User> GetUserItems();
+        Dictionary<long, User> GetUserItems();
     }
 }

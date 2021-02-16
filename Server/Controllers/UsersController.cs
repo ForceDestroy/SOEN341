@@ -9,7 +9,7 @@ using Server.Services;
 
 namespace Server.Controllers
 {
-    [Route("profiles/")]
+    [Route("profile/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -32,7 +32,7 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("GetUserItems")]
-        public ActionResult<Dictionary<string, User>> GetUserItems()
+        public ActionResult<Dictionary<long, User>> GetUserItems()
         {
             var userItems = _services.GetUserItems();
 
@@ -44,6 +44,58 @@ namespace Server.Controllers
             return userItems;                                                    
 
         }
+
+        [HttpPut]
+        [Route("ChangeUserItems")]
+        public ActionResult<Dictionary<long, User>> ChangeUserItems(User user)
+        {
+            var userItems = _services.GetUserItems();
+
+            if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId)) {
+                return NotFound();
+            }
+
+            userItems.Remove(user.userId);
+            userItems.Add(user.userId, user);
+
+            return userItems;
+        }
+
+        [HttpDelete]
+        [Route("DeleteUserItems")]
+        public ActionResult<Dictionary<long, User>> DeleteUserItems(User user)
+        {
+            var userItems = _services.GetUserItems();
+
+            if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId))
+            {
+                return NotFound();
+            }
+
+            userItems.Remove(user.userId);
+
+            return userItems;
+        }
+
+        //Review later
+
+        //[HttpPost]
+        //[Route("LoginUserItems")]
+        //public ActionResult<Dictionary<long, User>> LoginUserItems(User user)
+        //{
+        //    var userItems = _services.GetUserItems();
+
+        //    if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId))
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    userItems.Remove(user.userId);
+        //    userItems.Add(user.userId, user);
+
+        //    return userItems;
+        //}
+
 
     }
 }

@@ -30,6 +30,7 @@ namespace Server
             // For compatibility issues if needed
             //services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddSingleton<IUserServices, UserServices>();
+            services.AddSingleton<IPostServices, PostServices>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

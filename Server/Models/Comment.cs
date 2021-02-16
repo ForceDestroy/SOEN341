@@ -7,7 +7,7 @@ namespace Server.Models
 {
     public class Comment
     {
-        public User user { get; set; }
+        public MiniUser user { get; set; }
         public Post post { get; set; }
         public string content { get; set; }
 
@@ -18,7 +18,7 @@ namespace Server.Models
             this.content = null;
         }
 
-        public Comment(User user, Post post, string content)
+        public Comment(MiniUser user, Post post, string content)
         {
             this.user = user;
             this.post = post;

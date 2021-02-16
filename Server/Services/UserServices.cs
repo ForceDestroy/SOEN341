@@ -8,21 +8,21 @@ namespace Server.Services
 {
     public class UserServices : IUserServices
     {
-        private readonly Dictionary<string, User> _userItems;
+        private readonly Dictionary<long, User> _userItems;
 
         public UserServices()
         {
-            _userItems = new Dictionary<string, User>();
+            _userItems = new Dictionary<long, User>();
         }
 
         public User AddUserItems(User user)
         {
-            _userItems.Add(user.name, user);
+            _userItems.Add(user.userId, user);
 
             return user;
         }
 
-        public Dictionary<string, User> GetUserItems()
+        public Dictionary<long, User> GetUserItems()
         {
             return _userItems;
         }
