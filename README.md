@@ -8,7 +8,7 @@ This goal of this project is to create an application that is a clone of the com
 ## Technologies
 * ASP.NET (C#)
 * Angular JS
-* MySQL
+* MongoDB
 
 
 ## Team Members
