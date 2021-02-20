@@ -2,15 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 
 namespace Server.Models
 {
     public class User
     {
+        // Database id
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        private string _id;
+
         // Account Info
         public string username { get; set; }
         public string password { get; set; }
-        public long userId { get; set; }
+        public int userId { get; set; }
 
         // About the user
         public string name { get; set; }
@@ -18,6 +26,7 @@ namespace Server.Models
         
         // Social info
         public List<MiniUser> followers { get; set; }
+        public List<MiniUser> following { get; set; }
         public List<Post> posts { get; set; }
 
         // Post Tracking
@@ -25,6 +34,8 @@ namespace Server.Models
 
         public User()
         {
+            this._id = null;
+
             this.username = null;
             this.password = null;
 
@@ -32,13 +43,15 @@ namespace Server.Models
             this.profilePicture = null;
 
             this.followers = null;
+            this.following = null;
             this.posts = null;
 
             this.postCount = 0;
         }
 
-        public User(string username, string password, long userId, string name, string profilePicture, List<MiniUser> followers, List<Post> posts, int postCount)
+        public User(string _id, string username, string password, int userId, string name, string profilePicture, List<MiniUser> followers, List<MiniUser> following, List<Post> posts, int postCount)
         {
+            this._id = _id;
             this.username = username;
             this.password = password;
 
@@ -46,6 +59,7 @@ namespace Server.Models
             this.profilePicture = profilePicture;
 
             this.followers = followers;
+            this.following = following;
             this.posts = posts;
 
             this.postCount = postCount;
