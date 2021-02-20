@@ -37,6 +37,20 @@ namespace Server.Controllers
             return user;
         }
 
+        [HttpGet]
+        [Route("GetHighest")]
+        public ActionResult<User> GetHighest()
+        {
+            var user = _databaseService.GetHighest();
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            return user;
+        }
+
         [HttpPost]
         [Route("Create")]
         public ActionResult<User> Create(User user)

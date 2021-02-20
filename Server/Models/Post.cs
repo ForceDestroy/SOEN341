@@ -8,21 +8,23 @@ namespace Server.Models
     public class Post
     {
         // Post Details
-        public User user { get; set; }
+        public int userId { get; set; }
         public string postId { get; set; }
         public string image { get; set; }
+        public string caption { get; set; }
         public List<Comment> comments { get; set; }
         public DateTime date { get; set; }
 
         // Metrics
-        public List<MiniUser> likes { get; set; }
-        public List<MiniUser> hearts { get; set; }
+        public List<int> likes { get; set; }
+        public List<int> hearts { get; set; }
 
         public Post()
         {
-            this.user = null;
+            this.userId = 0;
             this.postId = null;
             this.image = null;
+            this.caption = null;
             this.comments = null;
             this.date = new DateTime();
 
@@ -30,19 +32,18 @@ namespace Server.Models
             this.hearts = null;
         }
 
-        public Post(User user, string image, List<Comment> comments, DateTime date, List<MiniUser> likes, List<MiniUser> hearts)
+        public Post(int userId, string image, string caption, List<Comment> comments, DateTime date, List<int> likes, List<int> hearts)
         {
-            this.user = user;
-            this.postId = $"{this.user.userId}-{this.user.postCount}";
+            this.userId = userId;
+            this.postId = null;
             this.image = image;
+            this.caption = caption;
             this.comments = comments;
             this.date = date;
 
             this.likes = likes;
             this.hearts = hearts;
 
-            // Increase the post count
-            this.user.postCount++;
         }
 
     }

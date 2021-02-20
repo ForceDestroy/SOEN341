@@ -14,9 +14,213 @@ namespace Server.Controllers
     [ApiController]
     public class PostsController : ControllerBase
     {
-        private readonly IPostServices _services = new PostServices();
+        private readonly DatabaseServices _databaseServices;
+
+
+        public PostsController(IDatabaseSettings settings)
+        {
+            _databaseServices = new DatabaseServices(settings);
+
+        }
+        
+        [HttpGet]
+        [Route("GetPost")]
+        public ActionResult<Post> GetPost(string postId)
+        {
+            var user = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var postItem = user.posts.Find(post => post.postId.Equals(postId));
+            if (postItem == null)
+            {
+                return NotFound();
+            }
+
+            return postItem;
+
+        }
+
+        //[HttpGet]
+        //[Route("GetPostsByUsername")]
+        //public ActionResult<List<Post>> GetPostsByUsername(string username)
+        //{
+        //    var user = _databaseServices.Get(username);
+
+        //    if (user == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var postItems = user.posts;
+            
+        //    if (postItems == null)
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    return postItems;
+
+        //}
+
+        [HttpGet]
+        [Route("GetPostsByUserId")]
+        public ActionResult<List<Post>> GetPostsByUserId(int id)
+        {
+            var user = _databaseServices.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var postItems = user.posts;
+
+            if (postItems == null)
+            {
+                return NotFound();
+            }
+
+            return postItems;
+
+        }
+        [HttpGet]
+        [Route("GetNewPostId")]
+        public ActionResult<int> GetNewPostId(int id)
+        {
+            var user = _databaseServices.Get(id);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var postCount = user.postCount;
+            if (postCount < 0)
+            {
+                return BadRequest();
+            }
+
+            return postCount + 1;
+
+        }
+        [HttpPost]
+        [Route("AddNewPost")]
+        public ActionResult<Post> AddNewPost(Post post)
+        {
+            var user = _databaseServices.Get(post.userId);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            if (user.posts.Contains(post))
+            {
+                return BadRequest();
+            }
+
+            user.posts.Add(post);
+
+            user.postCount++;
+            _databaseServices.Update(post.userId, user);
+
+            return post;
+        }
 
         [HttpPost]
+        [Route("AddNewComment")]
+        public ActionResult<Comment> AddNewComment(Comment comment)
+        {
+            var user = _databaseServices.Get(comment.userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            var post = user.posts.Find(p => p.postId.Equals(comment.postId));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            post.comments.Add(comment);
+
+            
+            _databaseServices.Update(comment.userId, user);
+
+            return comment;
+        }
+
+        [HttpPost]
+        [Route("AddLikeReaction")]
+        public ActionResult<List<int>> AddLikeReaction(int userId, string postId)
+        {
+            var postUser = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (postUser == null)
+            {
+                return NotFound();
+            }
+
+            var post = postUser.posts.Find(p => p.postId.Equals(postId));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            if (post.likes.Contains(userId))
+            {
+                return BadRequest();
+            }
+
+            post.likes.Add(userId);
+
+            _databaseServices.Update(post.userId, postUser);
+
+            return post.likes;
+
+        }
+
+        [HttpPost]
+        [Route("AddHeartReaction")]
+        public ActionResult<List<int>> AddHeartReaction(int userId, string postId)
+        {
+            var postUser = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (postUser == null)
+            {
+                return NotFound();
+            }
+
+            var post = postUser.posts.Find(p => p.postId.Equals(postId));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            if (post.hearts.Contains(userId))
+            {
+                return BadRequest();
+            }
+
+            post.hearts.Add(userId);
+
+            _databaseServices.Update(post.userId, postUser);
+
+            return post.hearts;
+
+        }
+
+
+        /*[HttpPost]
         [Route("AddPostItems")]
         public ActionResult<Post> AddPostItems(Post post)
         {
@@ -70,20 +274,7 @@ namespace Server.Controllers
         }
 
 
-        [HttpGet]
-        [Route("GetPostItems")]
-        public ActionResult<Dictionary<string, Post>> GetPostItems()
-        {
-            var postItems = _services.GetPostItems();
-
-            if (postItems.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return postItems;
-
-        }
+        
 
         [HttpDelete]
         [Route("DeletePostItems")]
@@ -101,6 +292,8 @@ namespace Server.Controllers
 
             
             return Ok();
-        }
+        
+    }
+        */
     }
 }

@@ -9,91 +9,92 @@ using Server.Services;
 
 namespace Server.Controllers
 {
-    [Route("profile/")]
+    [Route("user/")]
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserServices _services = new UserServices();
+        private readonly DatabaseServices _databaseServices;
 
-        [HttpPost]
-        [Route("AddUserItems")]
-        public ActionResult<User> AddUserItems(User user)
+
+        public UsersController(IDatabaseSettings settings)
         {
-            var userItems = _services.AddUserItems(user);
+            _databaseServices = new DatabaseServices(settings);
+            
+        }
 
-            if (user == null)
+        #region User Creation
+        [HttpGet]
+        [Route("GetNewUserId")]
+        public ActionResult<int> GetNewUserId()
+        {
+            var highestUser = _databaseServices.GetHighest();
+
+            if (highestUser == null)
             {
                 return NotFound();
             }
-
-            return userItems;
+            return highestUser.userId + 1;    
+            
+            
         }
 
         [HttpGet]
-        [Route("GetUserItems")]
-        public ActionResult<Dictionary<long, User>> GetUserItems()
+        [Route("CheckUsername")]
+        public ActionResult<User> CheckUsername(String username)
         {
-            var userItems = _services.GetUserItems();
+            var userItems = _databaseServices.Get(username);
 
-            if (userItems.Count == 0)
+            if (userItems != null)
+            {
+                return BadRequest();
+            }
+            return userItems;
+        }
+
+        [HttpPost]
+        [Route("CreateNewUser")]
+        public ActionResult<User> CreateNewUser(User user)
+        {
+            if (CheckUsername(user.username).Equals(user.username)){
+                return BadRequest();
+            }
+
+            if (_databaseServices.Get(user.userId) != null)
+            {
+                return BadRequest();
+            }
+
+            _databaseServices.Create(user);
+
+            return user;
+        }
+
+        #endregion
+
+
+        #region User Login
+
+        [HttpPost]
+        [Route("CheckLogin")]
+        public ActionResult<User> CheckLogin(string username, string password)
+        {
+            var userItems = _databaseServices.Get(username);
+            
+            if (userItems == null)
             {
                 return NotFound();
             }
 
-            return userItems;                                                    
-
-        }
-
-        [HttpPut]
-        [Route("ChangeUserItems")]
-        public ActionResult<Dictionary<long, User>> ChangeUserItems(User user)
-        {
-            var userItems = _services.GetUserItems();
-
-            if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId)) {
-                return NotFound();
-            }
-
-            userItems.Remove(user.userId);
-            userItems.Add(user.userId, user);
-
-            return userItems;
-        }
-
-        [HttpDelete]
-        [Route("DeleteUserItems")]
-        public ActionResult<Dictionary<long, User>> DeleteUserItems(User user)
-        {
-            var userItems = _services.GetUserItems();
-
-            if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId))
+            if (!userItems.password.Equals(password))
             {
-                return NotFound();
+                return BadRequest();
             }
-
-            userItems.Remove(user.userId);
 
             return userItems;
         }
 
-        //Review later
+        #endregion
 
-        //[HttpPost]
-        //[Route("LoginUserItems")]
-        //public ActionResult<Dictionary<long, User>> LoginUserItems(User user)
-        //{
-        //    var userItems = _services.GetUserItems();
-
-        //    if (userItems.Count == 0 || user == null || !userItems.ContainsKey(user.userId))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    userItems.Remove(user.userId);
-        //    userItems.Add(user.userId, user);
-
-        //    return userItems;
-        //}
 
 
     }
