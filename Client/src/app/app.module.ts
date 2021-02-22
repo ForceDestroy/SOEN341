@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms'
 
 //Components
 import { AppComponent } from './app.component';
@@ -10,11 +11,13 @@ import { AppComponent } from './app.component';
 import { AuthenticationModule } from './authentication/authentication.module';
 import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
+import { SharedModule } from './shared/shared.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {path: 'auth', loadChildren: () => AuthenticationModule},
   {path: 'home', loadChildren: () => HomeModule},
-  {path: 'profile', loadChildren: () => ProfileModule},
+  {path: 'user', loadChildren: () => ProfileModule},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
@@ -24,9 +27,12 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    SharedModule,
     RouterModule.forRoot(
       appRoutes,
-    )
+    ),
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

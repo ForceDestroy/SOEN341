@@ -5,6 +5,12 @@ import { RouterModule, Routes } from '@angular/router';
 
 //Components
 import { HomeComponent } from './home.component';
+import { SharedModule } from '../shared/shared.module';
+
+//Material Imports
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/Icon';
+
 
 const homeRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -16,6 +22,9 @@ const homeRoutes: Routes = [
   declarations: [HomeComponent],
   imports: [
     CommonModule,
+    SharedModule,
+    MatIconModule,
+    MatToolbarModule,
     RouterModule.forChild(homeRoutes),
   ]
 })
