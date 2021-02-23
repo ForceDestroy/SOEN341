@@ -19,6 +19,10 @@ namespace Server.Models
         public List<int> likes { get; set; }
         public List<int> hearts { get; set; }
 
+        // Reactions List
+        public List<User> likesList { get; set; }
+        public List<User> heartsList { get; set; }
+
         public Post()
         {
             this.userId = 0;

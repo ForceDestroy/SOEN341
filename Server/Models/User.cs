@@ -22,6 +22,7 @@ namespace Server.Models
 
         // About the user
         public string name { get; set; }
+        public string about { get; set; }
         public string profilePicture { get; set; }
         
         // Social info
@@ -40,6 +41,7 @@ namespace Server.Models
             this.password = null;
 
             this.name = null;
+            this.about = null;
             this.profilePicture = null;
 
             this.followers = null;
@@ -49,13 +51,14 @@ namespace Server.Models
             this.postCount = 0;
         }
 
-        public User(string _id, string username, string password, int userId, string name, string profilePicture, List<MiniUser> followers, List<MiniUser> following, List<Post> posts, int postCount)
+        public User(string _id, string username, string password, int userId, string name, string about, string profilePicture, List<MiniUser> followers, List<MiniUser> following, List<Post> posts, int postCount)
         {
             this._id = _id;
             this.username = username;
             this.password = password;
 
             this.name = name;
+            this.about = about;
             this.profilePicture = profilePicture;
 
             this.followers = followers;
