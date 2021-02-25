@@ -13,11 +13,13 @@ import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PostModule } from './post/post.module';
 
 const appRoutes: Routes = [
   {path: 'auth', loadChildren: () => AuthenticationModule},
   {path: 'home', loadChildren: () => HomeModule},
   {path: 'user', loadChildren: () => ProfileModule},
+  {path: 'post', loadChildren: () => PostModule},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
