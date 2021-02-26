@@ -7,18 +7,21 @@ namespace Server.Models
 {
     public class Comment
     {
-        public User user { get; set; }
+        public int userId { get; set; }
+        public string postId { get; set; }
         public string content { get; set; }
 
         public Comment()
         {
-            this.user = null;
+            this.userId = 0;
+            this.postId = null;
             this.content = null;
         }
 
-        public Comment(User user, string content)
+        public Comment(int userId, string postId, string content)
         {
-            this.user = user;
+            this.userId = userId;
+            this.postId = postId;
             this.content = content;
         }
     }
