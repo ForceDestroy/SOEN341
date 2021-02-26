@@ -11,14 +11,15 @@ export class ProfileComponent implements OnInit {
   userName: string;
   userId: string;
   posts: any = [];
+  profilePicture: string;
 
-  constructor(private profileServer: ProfileService) {
+  constructor(private profileService: ProfileService) {
     this.userName = localStorage.getItem('username');
     this.userId = localStorage.getItem('userId');
   }
 
   ngOnInit(): void {
-    this.profileServer.getAllPosts(this.userId).then((data)=>{
+    this.profileService.getAllPosts(this.userId).then((data)=>{
       let userPosts = JSON.parse(data);
       this.posts = userPosts.data;
     })
