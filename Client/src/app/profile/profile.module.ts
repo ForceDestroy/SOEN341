@@ -2,6 +2,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 //Components
 import { ProfileComponent } from './profile.component'; 
@@ -13,6 +14,7 @@ import { MatIconModule } from '@angular/material/Icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 
+
 const profileRoutes: Routes = [
   {path: ':id', component: ProfileComponent},
 ];
@@ -22,6 +24,7 @@ const profileRoutes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
+    HttpClientModule,
     MatIconModule,
     MatDividerModule,
     MatCardModule,
