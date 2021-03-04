@@ -131,6 +131,26 @@ namespace Server.Controllers
             return post;
         }
 
+        [HttpDelete]
+        [Route("RemovePost")]
+        public ActionResult<User> RemovePost(string postId)
+        {
+            var user = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            if (user.posts.RemoveAll(post => post.postId.Equals(postId)) == 0)
+            {
+                return BadRequest();
+            }
+
+            _databaseServices.Update(user.userId, user);
+            return user;
+        }
+
         [HttpPost]
         [Route("AddNewComment")]
         public ActionResult<Comment> AddNewComment(Comment comment)
