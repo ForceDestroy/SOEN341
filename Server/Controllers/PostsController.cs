@@ -151,11 +151,12 @@ namespace Server.Controllers
             return user;
         }
 
+
         [HttpPost]
         [Route("AddNewComment")]
         public ActionResult<Comment> AddNewComment(Comment comment)
         {
-            var user = _databaseServices.Get(comment.userId);
+            var user = _databaseServices.Get(comment.username);
 
             if (user == null)
             {
@@ -172,7 +173,7 @@ namespace Server.Controllers
             post.comments.Add(comment);
 
             
-            _databaseServices.Update(comment.userId, user);
+            _databaseServices.Update(user.userId, user);
 
             return comment;
         }
