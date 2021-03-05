@@ -156,7 +156,7 @@ namespace Server.Controllers
         [Route("AddNewComment")]
         public ActionResult<Comment> AddNewComment(Comment comment)
         {
-            var user = _databaseServices.Get(comment.username);
+            var user = _databaseServices.Get(Convert.ToInt32(comment.postId.Substring(0, comment.postId.IndexOf("-"))));
 
             if (user == null)
             {
@@ -167,7 +167,7 @@ namespace Server.Controllers
 
             if (post == null)
             {
-                return NotFound();
+                return BadRequest();
             }
 
             post.comments.Add(comment);
