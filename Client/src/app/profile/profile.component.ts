@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import { ProfileService } from './profile.service'; 
 
 @Component({
@@ -12,10 +13,16 @@ export class ProfileComponent implements OnInit {
   userId: string;
   posts: any = [];
   profilePicture: string;
+  numFollowers: any;
+  numFollowing: any;
+  numPosts: any;
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private router: Router) {
     this.userName = localStorage.getItem('username');
     this.userId = localStorage.getItem('userId');
+    this.numFollowers = localStorage.getItem('followers');
+    this.numFollowing = localStorage.getItem('following');
+    this.numPosts = localStorage.getItem('numPosts');
   }
 
   ngOnInit(): void {
@@ -24,5 +31,4 @@ export class ProfileComponent implements OnInit {
       this.posts = userPosts.data;
     })
   }
-
 }

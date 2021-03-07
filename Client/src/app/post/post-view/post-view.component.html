@@ -16,10 +16,10 @@
           <mat-card-title>UserName</mat-card-title>
           <mat-card-subtitle>Gangster</mat-card-subtitle>
         </mat-card-header>
-        <img mat-card-image src="https://static.toiimg.com/thumb/msid-44945488,width-748,height-499,resizemode=4,imgsize-291921/Nice-in-pictures.jpg">
+        <img id="post-picture" mat-card-image src={{postPicture}}>
         <mat-card-content>
           <p>
-            Had fun during my trip to wherever this place is! Definetly have to visit this place once in your lifetime!
+            {{postCaption}}
           </p>
         </mat-card-content>
         <mat-card-actions>
@@ -32,14 +32,12 @@
           <mat-card-title>Comments</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          <p><strong>Mike.denmo23 </strong>Looks very beautiful, would love to visit one day!</p>
-          <p><strong>Daniel.E </strong>Love the picture, absolutely stunning!</p>
-          <p><strong>TheLegends27 </strong>I was born there</p>
+          <p *ngFor="let comment of postComments"><strong>{{comment.username}}</strong> {{comment.content}}</p>
         </mat-card-content>
           <mat-form-field class="comment-input">
             <mat-label>Leave a comment</mat-label>
-            <input matInput placeholder="hello">
+            <input matInput [(ngModel)]="userComment">
           </mat-form-field>
-          <button mat-raised-button class="comment-btn">POST</button>
+          <button mat-raised-button class="comment-btn" (click)="addComment(userComment)">POST</button>
     </mat-card>
 </div>

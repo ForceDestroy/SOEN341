@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { PostService } from '../post.service';
 
 @Component({
@@ -8,19 +9,50 @@ import { PostService } from '../post.service';
 })
 export class PostViewComponent implements OnInit {
 
+  postUsername: string;
   postPicture: string;
+  postCaption: string;
+  postId:string;
   postComments: any = [];
-  userId: string;
 
-  constructor(private postService: PostService) { 
-    this.userId = localStorage.getItem('userId');
+  username: string;
+  userComment: string;
+  
+
+
+  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) { 
+    this.username = localStorage.getItem('username');
   }
 
   ngOnInit(): void {
-    this.postService.getAllPosts(this.userId).then((data)=>{
-      let userPosts = JSON.parse(data);
-      this.postComments = userPosts.data;
+    this.route.url.subscribe(params => {
+      this.postId = params[0].path;
+      this.loadPageContent();
+    })
+    console.log(this.username);
+  }
+
+  loadPageContent(){
+    this.postService.getPost(this.postId).then((data) =>{
+      let postData = JSON.parse(data);
+      console.log(postData);
+      this.postPicture = postData.data.image;
+      this.postComments = postData.data.comments;
+      this.postCaption = postData.data.caption;
     })
   }
+
+  addComment(comment){
+    let payload = {
+      "username": this.username,
+      "postId": this.postId,
+      "content": comment
+    };
+    this.postService.addComment(payload).then((data) =>{
+      this.loadPageContent();
+    })
+  }
+
+  
 
 }

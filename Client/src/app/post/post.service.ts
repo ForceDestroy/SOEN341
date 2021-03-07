@@ -34,14 +34,21 @@ export class PostService {
   }
 
   addComment(data){
-
+    return new Promise<string>(resolve => {
+      return this.http.post<any>(this.ROOT_URL + '/post/AddNewComment', data).subscribe((data)=>{ 	
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully added a comment.", "data":data}));
+          },(err)=>{
+            console.log(err);
+            resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
+          });		
+    })
   }
   
   getPost(postId){
     return new Promise<string>(resolve => {
-      return this.http.get(this.ROOT_URL + '/post/GetPostsByUserId?id=' + postId).subscribe((data)=>
+      return this.http.get(this.ROOT_URL + '/post/GetPost?postId=' + postId).subscribe((data)=>
           { 	
-            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrievde post.", "data":data}));
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieved post.", "data":data}));
           },(err)=>{
             console.log(err);
             resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
@@ -60,6 +67,8 @@ export class PostService {
           });		
     })
   }
+
+  
 
 
 }
