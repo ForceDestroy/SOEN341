@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   {path: 'home', loadChildren: () => HomeModule},
   {path: 'user', loadChildren: () => ProfileModule},
   {path: 'post', loadChildren: () => PostModule},
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  {path: '', redirectTo: 'auth', pathMatch: 'full'},
 ];
 
 @NgModule({
