@@ -13,6 +13,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/Icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
 
 
 const profileRoutes: Routes = [
@@ -29,6 +30,7 @@ const profileRoutes: Routes = [
     MatDividerModule,
     MatCardModule,
     MatGridListModule,
+    MatButtonModule,
     RouterModule.forChild(profileRoutes),
   ]
 })

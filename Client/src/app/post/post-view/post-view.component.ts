@@ -20,7 +20,7 @@ export class PostViewComponent implements OnInit {
   
 
 
-  constructor(private postService: PostService, private router: Router, private route: ActivatedRoute) { 
+  constructor(private postService: PostService,private route: ActivatedRoute) { 
     this.username = localStorage.getItem('username');
   }
 
@@ -29,13 +29,11 @@ export class PostViewComponent implements OnInit {
       this.postId = params[0].path;
       this.loadPageContent();
     })
-    console.log(this.username);
   }
 
   loadPageContent(){
     this.postService.getPost(this.postId).then((data) =>{
       let postData = JSON.parse(data);
-      console.log(postData);
       this.postPicture = postData.data.image;
       this.postComments = postData.data.comments;
       this.postCaption = postData.data.caption;

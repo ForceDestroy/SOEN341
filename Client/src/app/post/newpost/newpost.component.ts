@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router'
 import {FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { PostService } from '../post.service';
 
@@ -13,7 +14,7 @@ export class NewpostComponent implements OnInit {
   userId: string;
   newPostId: string;
 
-  constructor(private _formBuilder: FormBuilder, private postService: PostService ) { 
+  constructor(private _formBuilder: FormBuilder, private postService: PostService, private router: Router ) { 
     this.userId = localStorage.getItem('userId');
     this.postService.getNewPostId(this.userId).then((data)=>{
       let newData = JSON.parse(data);
@@ -33,7 +34,9 @@ export class NewpostComponent implements OnInit {
       let payload = {};
       payload = this.createPayload()
       console.log(payload);
-      this.postService.createPost(payload);
+      this.postService.createPost(payload).then(()=>{
+        this.router.navigateByUrl("/user/"+this.userId);
+      })
     }
   }
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProfileService } from './profile.service'; 
 
 @Component({
@@ -16,19 +16,37 @@ export class ProfileComponent implements OnInit {
   numFollowers: any;
   numFollowing: any;
   numPosts: any;
+  profileId: string;
+  isFollowing: boolean = false;
 
-  constructor(private profileService: ProfileService, private router: Router) {
-    this.userName = localStorage.getItem('username');
+  constructor(private profileService: ProfileService, private route: ActivatedRoute) {
     this.userId = localStorage.getItem('userId');
-    this.numFollowers = localStorage.getItem('followers');
-    this.numFollowing = localStorage.getItem('following');
-    this.numPosts = localStorage.getItem('numPosts');
   }
 
   ngOnInit(): void {
-    this.profileService.getAllPosts(this.userId).then((data)=>{
-      let userPosts = JSON.parse(data);
-      this.posts = userPosts.data;
+    this.route.url.subscribe(params => {
+      this.profileId = params[0].path;
+      this.loadPageContent();
+    })
+  }
+
+  loadPageContent(){
+    this.profileService.getUserInfo(this.profileId).then((data)=>{
+      let userInfo = JSON.parse(data);
+      console.log(userInfo);
+      this.posts = userInfo.data.posts;
+      this.userName = userInfo.data.username;
+      this.numFollowers = userInfo.data.followers.length;
+      this.numFollowing = userInfo.data.following.length;
+      this.numPosts = userInfo.data.posts.length;
+      this.profilePicture = userInfo.data.profilePicture;
+    })
+  }
+
+  follow(){
+    this.profileService.addFollowing(this.userId, this.profileId).then((data)=>{
+      let newData = JSON.parse(data);
+      console.log(newData);
     })
   }
 }
