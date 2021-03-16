@@ -13,7 +13,7 @@ export class NewpostComponent implements OnInit {
   userId: string;
   newPostId: string;
 
-  constructor(private _formBuilder: FormBuilder, private postService: PostService ) { 
+  constructor(private _formBuilder: FormBuilder, private postService: PostService ) {
     this.userId = localStorage.getItem('userId');
     this.postService.getNewPostId(this.userId).then((data)=>{
       let newData = JSON.parse(data);

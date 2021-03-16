@@ -1,4 +1,11 @@
-*{
+.login-card{
+  width: 400px;
+  margin: 10% auto;
+}
+
+
+
+/* {
     margin: 0;
     padding: 0;
     font-family:sans-senrif;
@@ -23,6 +30,7 @@
     padding: 5px;
 
 }
+
 .button-box{
     width: 220px;
     margin: 35px auto;
@@ -92,3 +100,8 @@ span{
     position: absolute;
 
 }
+
+#login{
+  left: 50px;
+}
+*/

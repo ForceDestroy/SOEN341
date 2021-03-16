@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Inject } from '@angular/core';
+import { Injectable } from '@angular/core';
+import { AuthService } from '../auth.service';
+
 
 
 @Component({
@@ -8,9 +13,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  userId: string;
+  password: string;
 
-  ngOnInit(): void {
-  }
+  constructor(private router: Router, private authService: AuthService) {}
 
+  ngOnInit(): void {}
+
+login(){
+  this.authService
+  .login(this.userId, this.password)
+  .subscribe(s => this.router.navigate(['']));
 }
+}
+
