@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RestSharp; //add pkg: dotnet add package RestSharp --version 106.11.7
 
 namespace Server.Services
 {
@@ -18,7 +19,32 @@ namespace Server.Services
 
             _users = database.GetCollection<User>(settings.CollectionName);
         }
-        
+
+        //Uploading imgage to imgur here
+
+        public static string UploadToImgur(string imgPath, string apiKey)
+        {
+            var client = new RestClient("https://api.imgur.com/3/image");
+            
+            client.Timeout = -1;
+            
+            var request = new RestRequest(Method.POST);
+            request.AddHeader("Authorization", "Client-ID " + apiKey);
+            request.AlwaysMultipartFormData = true;
+            request.AddParameter("image", imgPath);
+            IRestResponse response = client.Execute(request);
+
+            var content = response.Content;
+            int start = content.IndexOf("\"link\":\"https:");
+
+            string link = content.Substring(start + 8);
+            link = link.Substring(0, (link.IndexOf("success\"")) - 4);
+
+            link = link.Replace("\\", "");
+
+            return link;
+        }
+
         public List<User> Get() => _users.Find(user => true).ToList();
 
         public User Get(int id) => _users.Find(user => user.userId == id).FirstOrDefault();

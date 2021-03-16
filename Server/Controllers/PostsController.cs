@@ -151,6 +151,21 @@ namespace Server.Controllers
             return user;
         }
 
+        [HttpGet]
+        [Route("GetImageLink")]
+        public string GetImageLink(string imageLink) //right now it is a link to an image
+        {
+            //given an image link
+            //returns the imgur link equivalent
+
+           string key = "6af588629190cb3";
+
+           string link = DatabaseServices.UploadToImgur(imageLink, key);
+
+           return link;
+        }
+
+
 
         [HttpPost]
         [Route("AddNewComment")]
