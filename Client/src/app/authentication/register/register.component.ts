@@ -10,9 +10,10 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+
 userForm= new FormGroup({
-  user_email: new FormControl ('', [Validators.required]),
-  userId: new FormControl('', [Validators.required])
+  userId: new FormControl('', [Validators.required]),
+  password: new FormControl('',[Validators.required]),
 
 });
   constructor(private router: Router, private authService: AuthService) {
@@ -21,13 +22,22 @@ userForm= new FormGroup({
   }
 
   register() {
+    // if (!this.userForm.valid) {
+    //   return;
+    // }
     const user = this.userForm.getRawValue();
     this.authService
     .register(user)
-    .subscribe(s=> this.router.navigate(['/login']))
-    ;
-  }
+    .subscribe(s=> this.router.navigate(['auth/login']));
 
+    // ;
+  }
+// get userId() {
+//   return this.userForm.get('userId')
+// }
+// get password() {
+//   return this.userForm.get('password')
+// }
   ngOnInit(): void {
   }
 

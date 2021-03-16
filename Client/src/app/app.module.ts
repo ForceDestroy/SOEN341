@@ -5,6 +5,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
+
 //Components
 import { AppComponent } from './app.component';
 
@@ -16,12 +17,15 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostModule } from './post/post.module';
 
+//Material Imports
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 const appRoutes: Routes = [
   {path: 'auth', loadChildren: () => AuthenticationModule},
   {path: 'home', loadChildren: () => HomeModule},
   {path: 'user', loadChildren: () => ProfileModule},
   {path: 'post', loadChildren: () => PostModule},
-  {path: '', redirectTo: 'auth', pathMatch: 'full'},
+  {path: '', redirectTo: 'home', pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -34,11 +38,9 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes,
-    ),
-    BrowserAnimationsModule
-  ],
+    MatToolbarModule,
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

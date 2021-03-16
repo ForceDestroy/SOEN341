@@ -1,4 +1,4 @@
-<html>
+<!--<html>
     <head>
         <title>Registration Page</title>
         <link rel="stylesheet" href="register.component.css">
@@ -25,4 +25,47 @@
             </div>
         </div>
     </body>
+</html>
+  -->
+
+
+
+  <html>
+  <body>
+    <!--<mat-card class="register-card"> -->
+      <mat-card-header>
+        <mat-card-title>Register</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="userForm" >
+          <table cellspacing="0" >
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input name="userId" formControlName="userId"
+                  matInput placeholder="userId" required
+                  />
+
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr> <td>
+              <mat-form-field>
+                <input name="password" formControlName="password"
+                matInput placeholder="password" required
+                type="password"/>
+              </mat-form-field>
+            </td></tr>
+          </table>
+
+      </form>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button mat-raised-button color="primary"
+        (click)="register()">Register</button>
+        <span> Already have an account<a routerLink="../login">login</a>  here</span>
+      </mat-card-actions>
+
+  </body>
 </html>
