@@ -45,4 +45,16 @@ export class ProfileService {
           });		
     })
   }
+
+  removeFollowing(userId, followingId){
+    return new Promise<string>(resolve => {
+      return this.http.delete(this.ROOT_URL + '/follower/RemoveFollowing?followingId=' + followingId + '&userId=' + userId).subscribe((data)=>
+          { 	
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully unfollowed a user.", "data":data}));
+          },(err)=>{
+            console.log(err);
+            resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
+          });		
+    })
+  }
 }

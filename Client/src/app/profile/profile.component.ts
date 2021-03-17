@@ -40,13 +40,29 @@ export class ProfileComponent implements OnInit {
       this.numFollowing = userInfo.data.following.length;
       this.numPosts = userInfo.data.posts.length;
       this.profilePicture = userInfo.data.profilePicture;
+      for(let i = 0; i < userInfo.data.followers.length; i++){
+        if(userInfo.data.followers[i].userId == this.userId){
+          this.isFollowing = true;
+        }
+      }
     })
   }
 
   follow(){
+    this.isFollowing = true;
     this.profileService.addFollowing(this.userId, this.profileId).then((data)=>{
       let newData = JSON.parse(data);
       console.log(newData);
+      this.loadPageContent();
+    })
+  }
+
+  unfollow(){
+    this.isFollowing = false;
+    this.profileService.removeFollowing(this.userId, this.profileId).then((data)=>{
+      let newData = JSON.parse(data);
+      console.log(newData);
+      this.loadPageContent();
     })
   }
 }
