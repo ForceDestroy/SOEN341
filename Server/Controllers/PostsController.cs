@@ -153,14 +153,14 @@ namespace Server.Controllers
 
         [HttpGet]
         [Route("GetImageLink")]
-        public string GetImageLink(string imageLink) //right now it is a link to an image
+        public string GetImageLink(string imagePath) 
         {
-            //given an image link
+            //given an image path
             //returns the imgur link equivalent
 
            string key = "6af588629190cb3";
 
-           string link = DatabaseServices.UploadToImgur(imageLink, key);
+           string link = DatabaseServices.UploadToImgur(imagePath, key);
 
            return link;
         }
