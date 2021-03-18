@@ -1,11 +1,10 @@
-matrix
-  include
-    - language: csharp
-    mono: none
-    dotnet: 5.0.3
-    before_script:
-      - cd Server
-    script:
-      - dotnet restore
-      - msbuild
-      - dotnet test ../ServerTests/bin/Debug/net5.0/ServerTests.dll
+--- 
+before_script: 
+  - "cd Server"
+dotnet: "5.0.3"
+language: csharp
+mono: none
+script: 
+  - "dotnet restore"
+  - msbuild
+  - "dotnet test ../ServerTests/bin/Debug/net5.0/ServerTests.dll"
