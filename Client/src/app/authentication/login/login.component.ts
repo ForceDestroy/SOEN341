@@ -10,52 +10,48 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-
 export class LoginComponent implements OnInit {
-
   userDetails: string;
 
-  userForm=new FormGroup({
-    username:new FormControl('', [Validators.required]),
-    password:new FormControl('',[Validators.required]),
+  userForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
   constructor(private router: Router, private authService: AuthService) {
-   console.log('userform', this.userForm);
+    console.log('userform', this.userForm);
   }
 
-  login(){
+  login() {
     if (!this.userForm.valid) {
       return;
-      console.log("Invalid login attempt!")
+      console.log('Invalid login attempt!');
     }
 
     const userDetails = this.userForm.getRawValue();
     console.log(userDetails);
 
-    this.authService.getNewUsernamePassword(userDetails).then(res => {
+    this.authService.getNewUsernamePassword(userDetails).then((res) => {
       let code = JSON.parse(res);
       let returnCode = code.returnCode;
       console.log(userDetails.username);
       console.log(returnCode);
-      if (returnCode == "false") {
-        console.log("Invalid login attempt");
+      if (returnCode == 'false') {
+        console.log('Invalid login attempt');
         //Show error on screen here
-      }
-      else {
+      } else {
         //Valid login attemot
-        console.log("Succesfully logged in");
-        this.authService.subscribe(s=> this.router.navigate(['']));
+        console.log('Succesfully logged in');
+        // this.authService.subscribe(s=> this.router.navigate(['']));
       }
-    })
+    });
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
-  /*
+/*
   login(){
     this.authService.getNewusernamePassword(this.username,this.password).then(res => {
       let code = JSON.parse(res);
@@ -74,7 +70,7 @@ export class LoginComponent implements OnInit {
     }
     */
 
-      /*
+/*
   this.authService.getusername(this.username).then((data)=>{
     let username = JSON.parse(data);
     this.username = username.data;
@@ -85,4 +81,3 @@ export class LoginComponent implements OnInit {
     this.password = password.data;
   })
   */
-
