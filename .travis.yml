@@ -1,7 +1,7 @@
 --- 
 before_script: 
   - "cd Server"
-dotnet: "3.1.0"
+dotnet: 5.0.3
 language: csharp
 mono: none
 script: 
