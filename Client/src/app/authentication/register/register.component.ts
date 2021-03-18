@@ -10,35 +10,42 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
+  title = 'Client';
+  userDetails: string;
 
-userForm= new FormGroup({
-  userId: new FormControl('', [Validators.required]),
-  password: new FormControl('',[Validators.required]),
+  userForm=new FormGroup({
+    username:new FormControl('', [Validators.required]),
+    password:new FormControl('',[Validators.required]),
+  });
 
-});
   constructor(private router: Router, private authService: AuthService) {
     console.log('userform', this.userForm);
-
   }
 
   register() {
-    // if (!this.userForm.valid) {
-    //   return;
-    // }
-    const user = this.userForm.getRawValue();
-    this.authService
-    .register(user)
-    .subscribe(s=> this.router.navigate(['auth/login']));
-
-    // ;
+    if (!this.userForm.valid) {
+      return;
+      console.log("Invalid registration attempt")
+    }
+    const userDetails = this.userForm.getRawValue();
+    console.log(userDetails);
+    //Create user and add username, password to the database
+    this.authService.createUser(userDetails).then(res => {
+      let code = JSON.parse(res);
+      let returnCode = code.returnCode;
+      console.log(returnCode);
+      if (returnCode == "false") {
+        console.log("Invalid Register Attempt");
+        //Show error on screen here
+      }
+      else {
+        //Then redirect to the login page
+        this.authService.subscribe(s=> this.router.navigate(['auth/login']));
+        console.log("Succesfully registered");
+      }
+    });
   }
-// get userId() {
-//   return this.userForm.get('userId')
-// }
-// get password() {
-//   return this.userForm.get('password')
-// }
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
+
+

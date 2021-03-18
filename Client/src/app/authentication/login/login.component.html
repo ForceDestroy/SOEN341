@@ -27,6 +27,7 @@
     </body>
 </html>
   -->
+  <!--
 <html>
   <body>
     <mat-card class="login-card">
@@ -39,9 +40,9 @@
             <tr>
               <td>
                 <mat-form-field>
-                  <input name="userId" [(ngModel)]="userId"
-                  matInput placeholder="userId" required
-                  type="userId"
+                  <input name="username" [(ngModel)]="username"
+                  matInput placeholder="username" required
+                  type="username"
 
                   />
 
@@ -68,5 +69,47 @@
         </span>
       </mat-card-actions>
     </mat-card>
+  </body>
+</html>
+-->
+
+<html>
+  <body>
+    <!--<mat-card class="register-card"> -->
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="userForm" >
+          <table cellspacing="0" >
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input name="username" formControlName="username"
+                  matInput placeholder="username" required
+                  />
+
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <mat-form-field>
+                <input name="password" formControlName="password"
+                matInput placeholder="password" required
+                type="password"/>
+              </mat-form-field>
+            </td></tr>
+          </table>
+
+      </form>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button mat-raised-button color="primary"
+        (click)="login()">Login</button>
+        <span> Don't have an account? <a routerLink="../register">register</a>  here</span>
+      </mat-card-actions>
+
   </body>
 </html>
