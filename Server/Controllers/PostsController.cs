@@ -122,6 +122,11 @@ namespace Server.Controllers
             {
                 return BadRequest();
             }
+            
+            var base64Representation = post.image;
+
+            string link = DatabaseServices.UploadToImgur(base64Representation);
+            post.image = link;
 
             user.posts.Add(post);
 
@@ -150,23 +155,7 @@ namespace Server.Controllers
             _databaseServices.Update(user.userId, user);
             return user;
         }
-
-        [HttpGet]
-        [Route("GetImageLink")]
-        public string GetImageLink(string imagePath) 
-        {
-            //given an image path
-            //returns the imgur link equivalent
-
-           string key = "6af588629190cb3";
-
-           string link = DatabaseServices.UploadToImgur(imagePath, key);
-
-           return link;
-        }
-
-
-
+     
         [HttpPost]
         [Route("AddNewComment")]
         public ActionResult<Comment> AddNewComment(Comment comment)

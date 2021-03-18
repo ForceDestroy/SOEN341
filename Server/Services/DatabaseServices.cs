@@ -21,21 +21,17 @@ namespace Server.Services
             _users = database.GetCollection<User>(settings.CollectionName);
         }
 
-        //Uploading image to imgur here
-
-        public static string UploadToImgur(string imgPath, string apiKey)
+        //takes a base64 represntation of an image
+        //returns imgur link
+        public static string UploadToImgur(string imgBase64)
         {
-
-           byte [] imageArr = File.ReadAllBytes(imgPath);
-           string imgBase64 = Convert.ToBase64String(imageArr);
-
-
-            var client = new RestClient("https://api.imgur.com/3/image");
+            string key = "6af588629190cb3";
             
+            var client = new RestClient("https://api.imgur.com/3/image");
             client.Timeout = -1;
             
             var request = new RestRequest(Method.POST);
-            request.AddHeader("Authorization", "Client-ID " + apiKey);
+            request.AddHeader("Authorization", "Client-ID " + key);
             request.AlwaysMultipartFormData = true;
             request.AddParameter("image", imgBase64);
             IRestResponse response = client.Execute(request);
@@ -43,12 +39,12 @@ namespace Server.Services
             var content = response.Content;
             int start = content.IndexOf("\"link\":\"https:");
 
-            string link = content.Substring(start + 8);
-            link = link.Substring(0, (link.IndexOf("success\"")) - 4);
+            string imageLink = content.Substring(start + 8);
+            imageLink = imageLink.Substring(0, (imageLink.IndexOf("success\"")) - 4);
 
-            link = link.Replace("\\", "");
+            imageLink = imageLink.Replace("\\", "");
 
-            return link;
+            return imageLink;
         }
 
         public List<User> Get() => _users.Find(user => true).ToList();
