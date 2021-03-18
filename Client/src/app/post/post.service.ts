@@ -32,6 +32,17 @@ export class PostService {
           });		
     })
   }
+  getImageLink(data){
+		return new Promise<string>(resolve => {
+      return this.http.post<any>(this.ROOT_URL + '/post/GetImageLink', data).subscribe((data)=>
+          { 	
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieved image link.", "data":data}));
+          },(err)=>{
+            console.log(err);
+            resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
+          });		
+    })
+  }
 
   addComment(data){
     return new Promise<string>(resolve => {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router'
-import {FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PostService } from '../post.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-newpost',
@@ -13,8 +13,11 @@ export class NewpostComponent implements OnInit {
   postForm: FormGroup;
   userId: string;
   newPostId: string;
+  urlData: any;
+  imgurUrl: string;
+  clientId: string = "6af588629190cb3"
 
-  constructor(private _formBuilder: FormBuilder, private postService: PostService, private router: Router ) { 
+  constructor(private _formBuilder: FormBuilder, private postService: PostService, private router: Router) { 
     this.userId = localStorage.getItem('userId');
     this.postService.getNewPostId(this.userId).then((data)=>{
       let newData = JSON.parse(data);
@@ -29,12 +32,25 @@ export class NewpostComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  createFileUrl(event){
+    if (event.target.files && event.target.files[0]) {
+      var reader = new FileReader();
+
+      reader.readAsDataURL(event.target.files[0]); // read file as data url
+
+      reader.onload = (event) => { // called once readAsDataURL is completed
+        this.urlData = event.target.result.toString().split(',')[1];
+      }
+    }
+  }
+
   createPostObject(){
     if(this.postForm.valid){
       let payload = {};
       payload = this.createPayload()
       console.log(payload);
-      this.postService.createPost(payload).then(()=>{
+      this.postService.createPost(payload).then((data)=>{
+        let newDate = JSON.parse(data);
         this.router.navigateByUrl("/user/"+this.userId);
       })
     }
@@ -44,7 +60,7 @@ export class NewpostComponent implements OnInit {
     return{
       "userId": parseInt(this.userId),
       "postId": this.userId + '-' + this.newPostId,
-      "image": this.postForm.controls.imageFileCtrl.value,
+      "image": this.urlData,
       "caption": this.postForm.controls.captionCtrl.value,
       "comments": [],
       "date": "2021-02-26T02:42:51.233Z",

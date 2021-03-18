@@ -46,8 +46,9 @@ export class PostViewComponent implements OnInit {
       "postId": this.postId,
       "content": comment
     };
-    this.postService.addComment(payload).then((data) =>{
+    this.postService.addComment(payload).then(() =>{
       this.loadPageContent();
+      this.userComment = "";
     })
   }
 

@@ -4,9 +4,7 @@
     
     <form class="add-form" [formGroup]="postForm" ngSubmit="createPostObject()">
         <div>
-            <mat-form-field class="form-input">
-                <input matInput type="text" placeholder="Enter image file URL" formControlName="imageFileCtrl" required>
-            </mat-form-field>
+            <input type="file" formControlName="imageFileCtrl" (change)="createFileUrl($event)">
         </div>
         <mat-form-field class="form-input">
           <mat-label>Caption</mat-label>
