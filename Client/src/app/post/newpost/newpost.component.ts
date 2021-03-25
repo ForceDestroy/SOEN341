@@ -48,22 +48,24 @@ export class NewpostComponent implements OnInit {
     if(this.postForm.valid){
       let payload = {};
       payload = this.createPayload()
+
       console.log(payload);
       this.postService.createPost(payload).then((data)=>{
-        let newDate = JSON.parse(data);
+        let newData = JSON.parse(data);
         this.router.navigateByUrl("/user/"+this.userId);
       })
     }
   }
 
   createPayload(){
+    let postDate = new Date();
     return{
       "userId": parseInt(this.userId),
       "postId": this.userId + '-' + this.newPostId,
       "image": this.urlData,
       "caption": this.postForm.controls.captionCtrl.value,
       "comments": [],
-      "date": "2021-02-26T02:42:51.233Z",
+      "date": postDate.toISOString(),
       "likes": [],
       "hearts": [],
       "likesList": [],
