@@ -82,11 +82,13 @@ namespace Server.Controllers
             }
 
             user.followers.Add(follower);
-            
+            user.followers = user.followers.OrderBy(x => x.userId).ToList();
+
             // Now Updating the follower's following list
             var miniUser = new MiniUser(user.username, user.userId, user.profilePicture);
 
             followerUser.following.Add(miniUser);
+            followerUser.following = followerUser.following.OrderBy(x => x.userId).ToList();
 
             _databaseServices.Update(userId, user);
             _databaseServices.Update(followerId, followerUser);
@@ -119,7 +121,7 @@ namespace Server.Controllers
 
             if (user.followers.RemoveAll(follower => follower.userId == followerId) == 0)
             {
-                return Forbid();
+                return BadRequest();
             }
 
             // Now Updating the follower's following list
@@ -163,11 +165,13 @@ namespace Server.Controllers
             }
 
             user.following.Add(following);
+            user.following = user.following.OrderBy(x => x.userId).ToList();
 
             // Now Updating the following's follower list
             var miniUser = new MiniUser(user.username, user.userId, user.profilePicture);
 
             followingUser.followers.Add(miniUser);
+            followingUser.followers = followingUser.followers.OrderBy(x => x.userId).ToList();
 
             _databaseServices.Update(userId, user);
             _databaseServices.Update(followingId, followingUser);

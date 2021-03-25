@@ -123,7 +123,6 @@ namespace Server.Controllers
                 return BadRequest();
             }
 
-            post.date = DateTime.UtcNow;
 
             var base64Representation = post.image;
 
@@ -148,12 +147,12 @@ namespace Server.Controllers
             {
                 return NotFound();
             }
-
+            
             if (user.posts.RemoveAll(post => post.postId.Equals(postId)) == 0)
             {
                 return BadRequest();
             }
-
+            user.postCount--;
             _databaseServices.Update(user.userId, user);
             return user;
         }
@@ -245,6 +244,8 @@ namespace Server.Controllers
             return post.hearts;
 
         }
+
+
 
 
         /*[HttpPost]
