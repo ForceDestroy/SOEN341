@@ -122,7 +122,9 @@ namespace Server.Controllers
             {
                 return BadRequest();
             }
-            
+
+            post.date = DateTime.UtcNow;
+
             var base64Representation = post.image;
 
             string link = DatabaseServices.UploadToImgur(base64Representation);

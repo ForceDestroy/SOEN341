@@ -55,6 +55,11 @@ namespace Server.Controllers
         [Route("AddFollower")]
         public ActionResult<User> AddFollower(int followerId, int userId)
         {
+            if(followerId == userId)
+            {
+                return Forbid();
+            }
+
             var user = _databaseServices.Get(userId);
 
             if (user == null)
@@ -93,6 +98,11 @@ namespace Server.Controllers
         [Route("RemoveFollower")]
         public ActionResult<User> RemoveFollower(int followerId, int userId)
         {
+            if (followerId == userId)
+            {
+                return Forbid();
+            }
+
             var user = _databaseServices.Get(userId);
 
             if (user == null)
@@ -126,6 +136,11 @@ namespace Server.Controllers
         [Route("AddFollowing")]
         public ActionResult<User> AddFollowing(int followingId, int userId)
         {
+            if (followingId == userId)
+            {
+                return Forbid();
+            }
+
             var user = _databaseServices.Get(userId);
 
             if (user == null)
@@ -165,6 +180,11 @@ namespace Server.Controllers
         [Route("RemoveFollowing")]
         public ActionResult<User> RemoveFollowing(int followingId, int userId)
         {
+            if (followingId == userId)
+            {
+                return Forbid();
+            }
+
             var user = _databaseServices.Get(userId);
 
             if (user == null)
