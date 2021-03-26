@@ -214,6 +214,37 @@ namespace Server.Controllers
 
         }
 
+        [HttpDelete]
+        [Route("RemoveLikeReaction")]
+        public ActionResult<List<int>> RemoveLikeReaction(int userId, string postId)
+        {
+            var postUser = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (postUser == null)
+            {
+                return NotFound();
+            }
+
+            var post = postUser.posts.Find(p => p.postId.Equals(postId));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            if (!post.likes.Contains(userId))
+            {
+                return BadRequest();
+            }
+
+            post.likes.Remove(userId);
+
+            _databaseServices.Update(post.userId, postUser);
+
+            return post.likes;
+
+        }
+
         [HttpPost]
         [Route("AddHeartReaction")]
         public ActionResult<List<int>> AddHeartReaction(int userId, string postId)
@@ -238,6 +269,37 @@ namespace Server.Controllers
             }
 
             post.hearts.Add(userId);
+
+            _databaseServices.Update(post.userId, postUser);
+
+            return post.hearts;
+
+        }
+
+        [HttpDelete]
+        [Route("RemoveHeartReaction")]
+        public ActionResult<List<int>> RemoveHeartReaction(int userId, string postId)
+        {
+            var postUser = _databaseServices.Get(Convert.ToInt32(postId.Substring(0, postId.IndexOf("-"))));
+
+            if (postUser == null)
+            {
+                return NotFound();
+            }
+
+            var post = postUser.posts.Find(p => p.postId.Equals(postId));
+
+            if (post == null)
+            {
+                return NotFound();
+            }
+
+            if (!post.hearts.Contains(userId))
+            {
+                return BadRequest();
+            }
+
+            post.hearts.Remove(userId);
 
             _databaseServices.Update(post.userId, postUser);
 
