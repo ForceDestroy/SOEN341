@@ -1,29 +1,22 @@
 <app-header></app-header>
-<!-- <div class="user-post">
-    <img id="profile-pic" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="avatar">
-    <h1 id="username">Username</h1>
-</div>
-<div class="post-display">
-    <img id="user-post" src="https://static.toiimg.com/thumb/msid-44945488,width-748,height-499,resizemode=4,imgsize-291921/Nice-in-pictures.jpg">
-</div>
-<div class="comment-section">
 
-</div> -->
 <div class="main-div">
     <mat-card class="user-post">
         <mat-card-header>
-          <div mat-card-avatar class="profile-pic"></div>
-          <mat-card-title>UserName</mat-card-title>
+          <div mat-card-avatar style="background-image: url({{postProfilePicture}});"class="profile-pic"></div>
+          <mat-card-title>{{postUsername}}</mat-card-title>
           <mat-card-subtitle>Gangster</mat-card-subtitle>
         </mat-card-header>
         <img id="post-picture" mat-card-image src={{postPicture}}>
         <mat-card-content>
+          <p><strong>{{numLikes}} Likes</strong></p>
           <p>
             {{postCaption}}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button mat-button color="warn">LIKE</button>
+          <button *ngIf="!postLiked" mat-button color="warn" (click)="likePost()"><mat-icon>favorite_border</mat-icon></button>
+          <button *ngIf="postLiked" mat-button color="warn" (click)="likePost()"><mat-icon>favorite</mat-icon></button>
           <button mat-button color="primary">SHARE</button>
         </mat-card-actions>
     </mat-card>
