@@ -1,10 +1,15 @@
---- 
-before_script: 
+---
+before_script:
   - "cd Server"
+os: windows
 dotnet: 5.0
 language: csharp
 mono: none
-script: 
+install:
+  - choco install iisexpress
+script:
   - dotnet restore
   - dotnet build
-  # - dotnet test ../ServerTests/ServerTests.csproj
+  - cmd.exe //c "RefreshEnv.cmd"
+  - StartServer.bat
+  - dotnet test ../ServerTests/ServerTests.csproj
