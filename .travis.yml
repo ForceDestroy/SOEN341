@@ -2,12 +2,12 @@
 before_script:
   - "cd Server"
 os: windows
-dotnet: 3.1
 language: csharp
 mono: none
-install:
-  - choco install iisexpress
 script:
+  - choco install iisexpress
+  - choco install dotnetcore-sdk
+  - dotnet --version
   - dotnet restore
   - dotnet build
   - cmd.exe //c "RefreshEnv.cmd"
