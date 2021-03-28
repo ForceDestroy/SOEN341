@@ -10,5 +10,5 @@ script:
   - dotnet --version
   # - dotnet restore
   # - dotnet build
-  - cmd.exe //c "RefreshEnv.cmd & iisexpress.exe" || travis_terminate 0
+  - cmd.exe //c "RefreshEnv.cmd & StartServer.bat"
   # - dotnet test ../ServerTests/ServerTests.csproj
