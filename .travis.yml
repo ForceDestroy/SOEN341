@@ -8,8 +8,9 @@ script:
   - choco install iisexpress
   - choco install dotnetcore-sdk
   - dotnet --version
-  - dotnet restore
-  - dotnet build
+  # - dotnet restore
+  # - dotnet build
   - cmd.exe //c "RefreshEnv.cmd"
+  - cmd.exe
   - StartServer.bat
-  - dotnet test ../ServerTests/ServerTests.csproj
+  # - dotnet test ../ServerTests/ServerTests.csproj
