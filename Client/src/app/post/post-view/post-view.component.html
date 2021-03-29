@@ -9,15 +9,16 @@
         </mat-card-header>
         <img id="post-picture" mat-card-image src={{postPicture}}>
         <mat-card-content>
-          <p><strong>{{numLikes}} Likes</strong></p>
+          <p><strong>{{numLikes}} Likes<span id="numOfHearts">{{numHearts}} Hearts</span></strong></p>
           <p>
             {{postCaption}}
           </p>
         </mat-card-content>
         <mat-card-actions>
-          <button *ngIf="!postLiked" mat-button color="warn" (click)="likePost()"><mat-icon>favorite_border</mat-icon></button>
-          <button *ngIf="postLiked" mat-button color="warn" (click)="likePost()"><mat-icon>favorite</mat-icon></button>
-          <button mat-button color="primary">SHARE</button>
+          <button *ngIf="!postLiked" mat-button color="primary" (click)="likePost()"><mat-icon>thumb_up_off_alt</mat-icon></button>
+          <button *ngIf="postLiked" mat-button color="primary" (click)="likePost()"><mat-icon>thumb_up_off</mat-icon></button>
+          <button *ngIf="!postHearted"mat-button color="warn" (click)="heartPost()"><mat-icon>favorite_border</mat-icon></button>
+          <button *ngIf="postHearted" mat-button color="warn" (click)="heartPost()"><mat-icon>favorite</mat-icon></button>
         </mat-card-actions>
     </mat-card>
     <mat-card class="comment-section">

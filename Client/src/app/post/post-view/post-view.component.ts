@@ -16,10 +16,12 @@ export class PostViewComponent implements OnInit {
   postProfilePicture: string;
   postCaption: string;
   numLikes: any;
+  numHearts: any;
   postId:string;
   postUserId: string;
   postComments: any = [];
   postLiked: boolean = false;
+  postHearted: boolean = false;
   username: string;
   userComment: string;
   
@@ -44,12 +46,17 @@ export class PostViewComponent implements OnInit {
           this.postLiked = true;
         }
       }
-      console.log(this.postLiked);
+      for(let i = 0; i < postData.data.hearts.length; i++){
+        if(this.userId == postData.data.hearts[i]){
+          this.postHearted = true;
+        }
+      }
       this.postUserId = postData.data.userId;
       this.postPicture = postData.data.image;
       this.postComments = postData.data.comments;
       this.postCaption = postData.data.caption;
       this.numLikes = postData.data.likes.length;
+      this.numHearts = postData.data.hearts.length;
       this.profileService.getUserInfo(this.postUserId).then((data) =>{
         let profileData = JSON.parse(data);
         this.postUsername = profileData.data.name;
@@ -90,5 +97,23 @@ export class PostViewComponent implements OnInit {
     }
   }
   
+  heartPost(){
+    let payload = {
+      "postId": this.postId,
+      "userId": this.userId,
+    };
+    if(!this.postHearted){
+      this.postService.addHeartReaction(payload).then(() =>{
+        this.loadPageContent();
+        this.postHearted = true;
+      })
+    }
+    else{
+      this.postService.removeHeartReaction(payload).then(() =>{
+        this.loadPageContent();
+        this.postHearted = false;
+      })
+    }
+  }
 
 }

@@ -76,6 +76,27 @@ export class PostService {
           });		
     })
   }
+  addHeartReaction(data){
+    return new Promise<string>(resolve => {
+      return this.http.post<any>(this.ROOT_URL + '/post/AddHeartReaction?userId=' + data.userId + '&postId=' + data.postId, {}).subscribe((data)=>{ 	
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully hearted post.", "data":data}));
+          },(err)=>{
+            console.log(err);
+            resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
+          });		
+    })
+  }
+
+  removeHeartReaction(data){
+    return new Promise<string>(resolve => {
+      return this.http.delete<any>(this.ROOT_URL + '/post/RemoveHeartReaction?userId=' + data.userId + '&postId=' + data.postId, {}).subscribe((data)=>{ 	
+            resolve(JSON.stringify({"returnCode": "true","responseText": "successfully removed Heart on post.", "data":data}));
+          },(err)=>{
+            console.log(err);
+            resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
+          });		
+    })
+  }
   
   getPost(postId){
     return new Promise<string>(resolve => {
