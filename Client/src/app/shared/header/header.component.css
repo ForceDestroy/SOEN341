@@ -10,3 +10,14 @@
     top: 0;
     z-index: 1000;
 }
+
+#profile-pic {
+    position: relative;
+  top: 14px;
+  right: -10px;
+  z-index: 9999;
+}
+
+::ng-deep.mat-menu-panel {
+    width: 25rem!important;
+}

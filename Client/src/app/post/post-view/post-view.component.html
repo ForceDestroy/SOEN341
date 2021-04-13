@@ -3,9 +3,9 @@
 <div class="main-div">
     <mat-card class="user-post">
         <mat-card-header>
-          <div mat-card-avatar style="background-image: url({{postProfilePicture}});"class="profile-pic"></div>
+          <div routerLink="/user/{{postUserId}}" mat-card-avatar style="background-image: url({{postProfilePicture}});"class="profile-pic"></div>
           <mat-card-title>{{postUsername}}</mat-card-title>
-          <mat-card-subtitle>Gangster</mat-card-subtitle>
+          <mat-card-subtitle>User</mat-card-subtitle>
         </mat-card-header>
         <img id="post-picture" mat-card-image src={{postPicture}}>
         <mat-card-content>
