@@ -1,10 +1,7 @@
 import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-//import { ExecOptionsWithStringEncoding } from 'child_process';
 import { of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-//import { User } from './user';
-//import { UsersController } from '../../../../Server/Controllers/UsersController.cs'
 
 
  export interface User {
@@ -23,9 +20,6 @@ export class AuthService {
   subscribe: any;
   private loggedInStatus = false
 
-
-  //private loggedInStatus=JSON.parse(localStorage.getItem('loggedIn')||'false')
-
   constructor (private http: HttpClient) {}
 
   setLoggedIn(value : boolean){
@@ -36,17 +30,6 @@ export class AuthService {
   get isLoggedIn(){
     return this.loggedInStatus
   }
-
-  /*
-  login(userId: string, password: string){
-    const loginCredentials = {userId, password};
-    console.log('login credentials', loginCredentials);
-    //CheckLogin( userId,  password)
-    return of(loginCredentials);
-  }
-  */
-
-
 
   createUser(data){
     return new Promise<string>(resolve => {
@@ -71,12 +54,11 @@ export class AuthService {
     return of(user);
   }
 
-  private setUser(user)
- {
+  private setUser(user){
    this.user$.next(user);
-   }
+  }
 
-   getUserId(userId){
+  getUserId(userId){
 		return new Promise<string>(resolve => {
       return this.http.get(this.ROOT_URL + '/auth/GetUserId?id=' + userId).subscribe((data)=>
           {
