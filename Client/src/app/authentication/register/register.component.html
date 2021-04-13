@@ -1,7 +1,5 @@
-
-  <html>
+<html>
   <body>
-    <!--<mat-card class="register-card"> -->
       <mat-card-header>
         <mat-card-title>Register</mat-card-title>
       </mat-card-header>
@@ -14,7 +12,6 @@
                   <input name="username" formControlName="username"
                   matInput placeholder="username" required
                   />
-
                 </mat-form-field>
               </td>
             </tr>
@@ -27,15 +24,12 @@
               </mat-form-field>
             </td></tr>
           </table>
-
       </form>
       </mat-card-content>
-
       <mat-card-actions>
         <button mat-raised-button mat-raised-button color="primary"
         (click)="register()">Register</button>
         <span> Already have an account<a routerLink="../login">login</a>  here</span>
       </mat-card-actions>
-
   </body>
 </html>

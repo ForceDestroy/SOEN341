@@ -37,7 +37,6 @@ export class RegisterComponent implements OnInit {
       console.log(returnCode);
       if (returnCode == "false") {
         console.log("Invalid Register Attempt");
-        //Show error on screen here
       }
       else {
         //Then redirect to the login page

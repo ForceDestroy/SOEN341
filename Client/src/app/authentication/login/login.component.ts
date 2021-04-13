@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Inject } from '@angular/core';
-import { Injectable } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { HttpClient } from '@angular/common/http';
-import { stringify } from '@angular/compiler/src/util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { NodeWithI18n } from '@angular/compiler';
 
 
 @Component({
@@ -31,12 +26,11 @@ export class LoginComponent implements OnInit {
 
   login() {
     if (!this.userForm.valid) {
-      return;
       console.log('Invalid login attempt!');
+      return;
     }
 
     const userDetails = this.userForm.getRawValue();
-    //const userNameFromForm = this.userForm.get('username').value; //Get straight up the username from the form
     console.log(userDetails);
 
     this.authService.getNewUsernamePassword(userDetails).then((res) => {
@@ -60,17 +54,9 @@ export class LoginComponent implements OnInit {
         }
         localStorage.setItem('loginCredentials', JSON.stringify(localStorageItem));
         this.authService.subscribe(s=> this.router.navigate(['']));
-        /*
-        this.http.get(this.ROOT_URL + '/db/getAll').subscribe((data)=>{
-          localStorage.setItem('userId', data[2].username)
-        })
-        */
       }
     });
   }
 
-  ngOnInit(): void {
-
-
-  }
+  ngOnInit(): void { }
 }

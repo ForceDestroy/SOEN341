@@ -1,10 +1,7 @@
-import { stringify } from '@angular/compiler/src/util';
 import { Injectable } from '@angular/core';
-//import { ExecOptionsWithStringEncoding } from 'child_process';
 import { of, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-//import { User } from './user';
-//import { UsersController } from '../../../../Server/Controllers/UsersController.cs'
+
 
 export interface User {
   userId: string;
@@ -21,15 +18,6 @@ export class AuthService {
   subscribe: any;
 
   constructor(private http: HttpClient) {}
-
-  /*
-  login(userId: string, password: string){
-    const loginCredentials = {userId, password};
-    console.log('login credentials', loginCredentials);
-    //CheckLogin( userId,  password)
-    return of(loginCredentials);
-  }
-  */
 
   createUser(data) {
     return new Promise<string>((resolve) => {
@@ -100,6 +88,7 @@ export class AuthService {
         );
     });
   }
+
   getPassword(password) {
     return new Promise<string>((resolve) => {
       return this.http
@@ -127,29 +116,6 @@ export class AuthService {
     });
   }
 
-  // getNewPassword(password){
-  // 	return new Promise<string>(resolve => {
-  //     return this.http.get(this.ROOT_URL + '/auth/GetNewPassword?id=' + password).subscribe((data)=>
-  //         {
-  //           resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieve password.", "data":data}));
-  //         },(err)=>{
-  //           console.log(err);
-  //           resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
-  //         });
-  //   })
-  // }
-
-  // getNewUserId(userId){
-  // 	return new Promise<string>(resolve => {
-  //     return this.http.get(this.ROOT_URL + '/auth/GetNewUserId?id=' + userId).subscribe((data)=>
-  //         {
-  //           resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieve password.", "data":data}));
-  //         },(err)=>{
-  //           console.log(err);
-  //           resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
-  //         });
-  //   })
-  // }
   getNewUsernamePassword(data) {
     return new Promise<string>((resolve) => {
       return this.http
