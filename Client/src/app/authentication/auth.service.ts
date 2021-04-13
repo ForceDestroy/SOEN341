@@ -21,8 +21,21 @@ export class AuthService {
 
   private user$ =  new Subject<User>();
   subscribe: any;
+  private loggedInStatus = false
+
+
+  //private loggedInStatus=JSON.parse(localStorage.getItem('loggedIn')||'false')
 
   constructor (private http: HttpClient) {}
+
+  setLoggedIn(value : boolean){
+    this.loggedInStatus = value
+
+  }
+
+  get isLoggedIn(){
+    return this.loggedInStatus
+  }
 
   /*
   login(userId: string, password: string){
@@ -32,6 +45,8 @@ export class AuthService {
     return of(loginCredentials);
   }
   */
+
+
 
   createUser(data){
     return new Promise<string>(resolve => {
@@ -83,30 +98,7 @@ export class AuthService {
           });
     })
   }
-
-  // getNewPassword(password){
-	// 	return new Promise<string>(resolve => {
-  //     return this.http.get(this.ROOT_URL + '/auth/GetNewPassword?id=' + password).subscribe((data)=>
-  //         {
-  //           resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieve password.", "data":data}));
-  //         },(err)=>{
-  //           console.log(err);
-  //           resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
-  //         });
-  //   })
-  // }
-
-  // getNewUserId(userId){
-	// 	return new Promise<string>(resolve => {
-  //     return this.http.get(this.ROOT_URL + '/auth/GetNewUserId?id=' + userId).subscribe((data)=>
-  //         {
-  //           resolve(JSON.stringify({"returnCode": "true","responseText": "successfully retrieve password.", "data":data}));
-  //         },(err)=>{
-  //           console.log(err);
-  //           resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
-  //         });
-  //   })
-  // }
+//get user details
   getNewUsernamePassword(data) {
 		return new Promise<string>(resolve => {
       return this.http.get(this.ROOT_URL + '/user/checkLogin',data).subscribe((data)=>
@@ -116,6 +108,7 @@ export class AuthService {
             console.log(err);
             resolve(JSON.stringify({"returnCode": "false","responseText": "There seems to be an issue with the server."}));
           });
+
     })
   }
 }

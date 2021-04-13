@@ -6,83 +6,71 @@ import { AuthService } from '../auth.service';
 import { HttpClient } from '@angular/common/http';
 import { stringify } from '@angular/compiler/src/util';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { NodeWithI18n } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-
 export class LoginComponent implements OnInit {
-
   userDetails: string;
+  title = 'Client';
 
-  userForm=new FormGroup({
-    username:new FormControl('', [Validators.required]),
-    password:new FormControl('',[Validators.required]),
+  ROOT_URL: string = "https://localhost:44318";
+
+  userForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private router: Router, private authService: AuthService) {
-   console.log('userform', this.userForm);
+  constructor(private http: HttpClient, private router: Router, private authService: AuthService) {
+    console.log('userform', this.userForm);
   }
 
-  login(){
+  login() {
     if (!this.userForm.valid) {
       return;
-      console.log("Invalid login attempt!")
+      console.log('Invalid login attempt!');
     }
 
     const userDetails = this.userForm.getRawValue();
+    //const userNameFromForm = this.userForm.get('username').value; //Get straight up the username from the form
     console.log(userDetails);
 
-    this.authService.getNewUsernamePassword(userDetails).then(res => {
+    this.authService.getNewUsernamePassword(userDetails).then((res) => {
       let code = JSON.parse(res);
       let returnCode = code.returnCode;
       console.log(userDetails.username);
       console.log(returnCode);
-      if (returnCode == "false") {
-        console.log("Invalid login attempt");
+
+      if (returnCode == 'false') {
+        console.log('Invalid login attempt');
         //Show error on screen here
       }
       else {
-        //Valid login attemot
-        console.log("Succesfully logged in");
+        //Valid login attempt
+        console.log('Succesfully logged in');
+        //this.authService.setLoggedIn(true);
+        const currentTime = new Date();
+        const localStorageItem = {
+          value: userDetails.username,
+          expiry: currentTime.getTime() + 3600000, // expire in 1hr (=3600000 milliseconds)
+        }
+        localStorage.setItem('loginCredentials', JSON.stringify(localStorageItem));
         this.authService.subscribe(s=> this.router.navigate(['']));
+        /*
+        this.http.get(this.ROOT_URL + '/db/getAll').subscribe((data)=>{
+          localStorage.setItem('userId', data[2].username)
+        })
+        */
       }
-    })
+    });
   }
 
   ngOnInit(): void {
+
+
   }
 }
-  /*
-  login(){
-    this.authService.getNewusernamePassword(this.username,this.password).then(res => {
-      let code = JSON.parse(res);
-      let returnCode = code.returnCode;
-      if (returnCode == "false") {
-        this.authService.subscribe(s => this.router.navigate(['/login'])) ;
-        console.log("Invalid login attempt");
-      }
-      else {
-      this.authService
-      .login(this.username, this.password)
-      .subscribe(s => this.router.navigate(['']));
-      console.log("Succesfully logged in");
-      }
-    })
-    }
-    */
-
-      /*
-  this.authService.getusername(this.username).then((data)=>{
-    let username = JSON.parse(data);
-    this.username = username.data;
-  })
-
-  this.authService.getPassword(this.password).then((data)=>{
-    let password = JSON.parse(data);
-    this.password = password.data;
-  })
-  */
-

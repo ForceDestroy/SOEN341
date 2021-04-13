@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
-
+import {AuthGuard} from './auth.guard'
 
 //Components
 import { AppComponent } from './app.component';
@@ -22,7 +22,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 
 const appRoutes: Routes = [
   {path: 'auth', loadChildren: () => AuthenticationModule},
-  {path: 'home', loadChildren: () => HomeModule},
+  {path: 'home', loadChildren: () => HomeModule, canActivate: [AuthGuard]},
   {path: 'user', loadChildren: () => ProfileModule},
   {path: 'post', loadChildren: () => PostModule},
   {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -41,7 +41,7 @@ const appRoutes: Routes = [
     MatToolbarModule,
     RouterModule.forRoot(appRoutes),
     BrowserAnimationsModule],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
