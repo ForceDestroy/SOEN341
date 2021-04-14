@@ -43,16 +43,22 @@ export class LoginComponent implements OnInit {
         console.log('Invalid login attempt');
         //Show error on screen here
       }
+
+      //Valid login attempt
       else {
-        //Valid login attempt
         console.log('Succesfully logged in');
-        //this.authService.setLoggedIn(true);
+
+        //Add userId and session expiry time to local storage
+        let loginUserId = code.data.userId; //Believe this is how to get userId
+
         const currentTime = new Date();
         const localStorageItem = {
-          value: userDetails.username,
+          userId: loginUserId,
           expiry: currentTime.getTime() + 3600000, // expire in 1hr (=3600000 milliseconds)
         }
         localStorage.setItem('loginCredentials', JSON.stringify(localStorageItem));
+
+        //Navigate to home page
         this.authService.subscribe(s=> this.router.navigate(['']));
       }
     });

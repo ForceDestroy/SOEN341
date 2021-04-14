@@ -39,6 +39,7 @@ namespace Server.Models
 
             this.username = null;
             this.password = null;
+            this.userId = -1;
 
             this.name = null;
             this.about = null;
@@ -56,6 +57,7 @@ namespace Server.Models
             this._id = _id;
             this.username = username;
             this.password = password;
+            this.userId = userId;
 
             this.name = name;
             this.about = about;
