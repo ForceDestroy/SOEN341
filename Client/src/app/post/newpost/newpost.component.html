@@ -1,7 +1,7 @@
 <app-header></app-header>
 <div class="main-div">
     <h1 id="new-post">New Post</h1>
-    
+
     <form class="add-form" [formGroup]="postForm" ngSubmit="createPostObject()">
         <div>
             <input type="file" formControlName="imageFileCtrl" (change)="createFileUrl($event)">

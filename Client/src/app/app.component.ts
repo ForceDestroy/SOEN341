@@ -14,6 +14,7 @@ export class AppComponent {
 
   constructor(private http: HttpClient){}
 
+
   ngOnInit(){
     this.http.get(this.ROOT_URL + '/db/getAll').subscribe((data)=>{
       localStorage.setItem('username', data[2].username)

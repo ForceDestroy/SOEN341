@@ -2,7 +2,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { Routes, RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
 
 //Components
@@ -16,6 +16,9 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PostModule } from './post/post.module';
 import { SettingsModule } from './settings/settings.module';
+
+//Material Imports
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 const appRoutes: Routes = [
   {path: 'auth', loadChildren: () => AuthenticationModule},
@@ -33,13 +36,12 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     SharedModule,
     HttpClientModule,
-    RouterModule.forRoot(
-      appRoutes,
-    ),
-    BrowserAnimationsModule
-  ],
+    MatToolbarModule,
+    RouterModule.forRoot(appRoutes),
+    BrowserAnimationsModule],
   providers: [],
   bootstrap: [AppComponent]
 })

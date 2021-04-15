@@ -8,26 +8,37 @@ import { ProfileService } from '../profile/profile.service';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
-
-
+  localStorageCredentialsObj;
   userName: string;
   userId: string;
   followPosts: any = [];
   profileId: string;
 
-
-
-  constructor(private homeService: HomeService, private profileService: ProfileService, private route: ActivatedRoute) {
-    this.userId = localStorage.getItem('userId');
-    this.userName = localStorage.getItem('username');
+  constructor(private homeService: HomeService, private profileService: ProfileService, private route: ActivatedRoute,private router: Router ) {
+    //this.userId = localStorage.getItem('userId');
+  //  this.userName = localStorage.getItem('username');
   }
 
   ngOnInit(): void {
-    this.route.url.subscribe(params => {
-      this.profileId = params[0].path;
-      this.loadPageContent();
-    })
+    if (!this.verifyCanLogin()) {
+      console.log("ERROR: Not logged in!");
+      this.router.navigate(['../auth/login']);
+    }
+
+    // If local storage contains valid username then allow access
+    else {
+      console.log("Valid Viewing of Home Page");
+
+      //Retrieve user id from local storage to use for other methods
+      this.userId = this.localStorageCredentialsObj.userId;
+      this.route.url.subscribe(params => {
+        this.profileId = params[0].path;
+        this.loadPageContent();
+      })
+
+    }
   }
 
   loadPageContent() {
@@ -38,5 +49,26 @@ export class HomeComponent implements OnInit {
       this.followPosts = follower.data;
       console.log(this.followPosts);
     })
+  }
+
+  verifyCanLogin() {
+    const loginCredentials = localStorage.getItem('loginCredentials');
+    // if the credentials doesn't exist means that no one ever logged in
+    // Return false
+    if (!loginCredentials) {
+      return false
+    }
+
+    this.localStorageCredentialsObj = JSON.parse(loginCredentials)
+    const now = new Date()
+
+    // compare the expiry time of the item with the current time
+    if (now.getTime() > this.localStorageCredentialsObj.expiry) {
+      // If the item is expired, delete the item from storage
+      localStorage.removeItem(loginCredentials)
+      return false
+    }
+
+    return true
   }
 }

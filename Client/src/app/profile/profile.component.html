@@ -6,7 +6,7 @@
         <span class="user-attr">{{numPosts}} Posts</span>
         <span class="user-attr">{{numFollowers}} followers</span>
         <span class="user-attr">{{numFollowing}} following</span>
-    </div>  
+    </div>
     <button *ngIf="userId != profileId && !isFollowing" mat-raised-button class="follow-btn" (click)="follow()">FOLLOW</button>
     <button *ngIf="userId != profileId && isFollowing" mat-raised-button class="follow-btn" (click)="unfollow()">FOLLOWING <mat-icon>done</mat-icon></button>
 </div>
