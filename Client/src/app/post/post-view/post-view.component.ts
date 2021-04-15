@@ -18,7 +18,7 @@ export class PostViewComponent implements OnInit {
 
   ngOnInit(): void {
     // Invalid attempt to access page, kick them out
-    if (!this.verifyCanLogin ) {
+    if (!this.verifyCanLogin() ) {
       console.log("ERROR: Not logged in!")
       this.router.navigate(['../../auth/login']);
     }

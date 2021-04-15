@@ -17,7 +17,7 @@ export class NewpostComponent implements OnInit {
 
   constructor(private _formBuilder: FormBuilder, private postService: PostService, private router: Router) {
      // Invalid attempt to access page, kick them out
-     if (!this.verifyCanLogin ) {
+     if (!this.verifyCanLogin() ) {
       console.log("ERROR: Not logged in!")
       this.router.navigate(['../../auth/login']);
     }

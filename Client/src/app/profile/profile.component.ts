@@ -18,8 +18,9 @@ export class ProfileComponent implements OnInit {
   constructor(private profileService: ProfileService, private router: Router) { }
 
   ngOnInit(): void {
+    console.log("YOOOOO MAMA")
      // Invalid attempt to access page, kick them out
-     if (!this.verifyCanLogin ) {
+     if (!this.verifyCanLogin() ) {
       console.log("ERROR: Not logged in!")
       this.router.navigate(['../auth/login']);
     }
