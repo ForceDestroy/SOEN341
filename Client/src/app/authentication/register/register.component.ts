@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
       }
       else {
         //Then redirect to the login page
-        this.authService.subscribe(s=> this.router.navigate(['auth/login']));
+        this.router.navigate(['auth/login']);
         console.log("Succesfully registered");
       }
     });

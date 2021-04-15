@@ -34,8 +34,8 @@ export class LoginComponent implements OnInit {
     console.log(userDetails);
 
     this.authService.getNewUsernamePassword(userDetails).then((res) => {
-      let code = JSON.parse(res);
-      let returnCode = code.returnCode;
+      let returnObject = JSON.parse(res);
+      let returnCode = returnObject.returnCode;
       console.log(userDetails.username);
       console.log(returnCode);
 
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
         console.log('Succesfully logged in');
 
         //Add userId and session expiry time to local storage
-        let loginUserId = code.data.userId; //Believe this is how to get userId
+        let loginUserId = returnObject.data.userId; //Believe this is how to get userId
 
         const currentTime = new Date();
         const localStorageItem = {
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('loginCredentials', JSON.stringify(localStorageItem));
 
         //Navigate to home page
-        this.authService.subscribe(s=> this.router.navigate(['']));
+        this.router.navigate(['']);
       }
     });
   }
