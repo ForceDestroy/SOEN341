@@ -1,8 +1,15 @@
 <app-header></app-header>
 
+<mat-card-actions>
+  <button mat-raised-button mat-raised-button color="primary"
+  (click)="logout()">Logout</button>
+</mat-card-actions>
+
 <h1>Welcome {{userName}}, check out some of your friends' posts</h1>
 
 <div style="text-align: center; justify-content: center; display: block;">
+
+
   <mat-grid-list cols="3" rowHeight="2:1">
     <mat-grid-tile *ngFor="let followPost of followPosts">
       <img class="user-post" src="{{followPost.image}}" alt="N/A" layout-fill routerLink="/post/{{followPost.postId}}">
