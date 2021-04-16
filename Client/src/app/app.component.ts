@@ -16,13 +16,13 @@ export class AppComponent {
 
 
   ngOnInit(){
-    this.http.get(this.ROOT_URL + '/db/getAll').subscribe((data)=>{
-      localStorage.setItem('username', data[2].username)
-      localStorage.setItem('userId', data[2].userId)
-      localStorage.setItem('profilePicture', data[2].profilePicture)
-      localStorage.setItem('followers', data[2].followers.length);
-      localStorage.setItem('following', data[2].following.length);
-      localStorage.setItem('numPosts', data[2].posts.length);
-    })
+    // this.http.get(this.ROOT_URL + '/db/getAll').subscribe((data)=>{
+    //   localStorage.setItem('username', data[2].username)
+    //   localStorage.setItem('userId', data[2].userId)
+    //   localStorage.setItem('profilePicture', data[2].profilePicture)
+    //   localStorage.setItem('followers', data[2].followers.length);
+    //   localStorage.setItem('following', data[2].following.length);
+    //   localStorage.setItem('numPosts', data[2].posts.length);
+    // })
   }
 }

@@ -57,6 +57,7 @@ export class LoginComponent implements OnInit {
           expiry: currentTime.getTime() + 3600000, // expire in 1hr (=3600000 milliseconds)
         }
         localStorage.setItem('loginCredentials', JSON.stringify(localStorageItem));
+        localStorage.setItem('userId', loginUserId);
 
         //Navigate to home page
         this.router.navigate(['']);
