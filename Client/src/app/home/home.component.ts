@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.verifyCanLogin()) {
+    if (!this.verifyCanLogin()) {
       console.log("ERROR: Not logged in!");
       this.router.navigate(['../auth/login']);
     }
