@@ -1,10 +1,14 @@
---- 
-before_script: 
+---
+before_script:
   - "cd Server"
-dotnet: "5.0.3"
+os: windows
 language: csharp
 mono: none
-script: 
-  - "dotnet restore"
-  - msbuild
-  - "dotnet test ../ServerTests/bin/Debug/net5.0/ServerTests.dll"
+script:
+  - choco install iisexpress
+  - choco install dotnetcore-sdk
+  - dotnet --version
+  # - dotnet restore
+  # - dotnet build
+  - cmd.exe //c "RefreshEnv.cmd & StartServer.bat"
+  # - dotnet test ../ServerTests/ServerTests.csproj

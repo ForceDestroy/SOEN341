@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Server.Models
 {
-    public class MiniUser
+    public class MiniUser: IEquatable<MiniUser>
     {
         public string username { get; set; }
         public long userId { get; set; }
@@ -23,6 +23,11 @@ namespace Server.Models
             this.username = username;
             this.userId = userId;
             this.profilePicture = profilePicture;
+        }
+
+        public Boolean Equals(MiniUser miniUser)
+        {
+            return username.Equals(miniUser.username) && userId == miniUser.userId;
         }
     }
 }

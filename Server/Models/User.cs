@@ -13,6 +13,7 @@ namespace Server.Models
         // Database id
         [BsonId]
         [BsonRepresentation(BsonType.ObjectId)]
+        [BsonIgnoreIfDefault]
         private string _id;
 
         // Account Info
@@ -35,7 +36,7 @@ namespace Server.Models
 
         public User()
         {
-            this._id = null;
+            //this._id = null;
 
             this.username = null;
             this.password = null;
@@ -53,9 +54,10 @@ namespace Server.Models
 
         public User(string _id, string username, string password, int userId, string name, string about, string profilePicture, List<MiniUser> followers, List<MiniUser> following, List<Post> posts, int postCount)
         {
-            this._id = _id;
+            //this._id = _id;
             this.username = username;
             this.password = password;
+            this.userId = userId;
 
             this.name = name;
             this.about = about;
