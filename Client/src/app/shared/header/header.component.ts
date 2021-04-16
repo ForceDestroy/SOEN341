@@ -39,11 +39,10 @@ export class HeaderComponent implements OnInit {
   // Logout
   logout() : void{
     //Remove localStorage details of current active session
-    const loginCredentials = localStorage.getItem('loginCredentials');
-    localStorage.removeItem(loginCredentials);
+    localStorage.removeItem('loginCredentials');
 
     //Navigate to login page
-    this.router.navigate(['../auth/login']);
+    this.router.navigate(['../../auth/login']);
 
     console.log("Goodbye!");
   }

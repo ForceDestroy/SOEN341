@@ -25,7 +25,6 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("YOOOOO MAMA")
      // Invalid attempt to access page, kick them out
      if (!this.verifyCanLogin() ) {
       console.log("ERROR: Not logged in!")
@@ -65,7 +64,7 @@ export class ProfileComponent implements OnInit {
     // compare the expiry time of the item with the current time
     if (now.getTime() > this.localStorageCredentialsObj.expiry) {
       // If the item is expired, delete the item from storage
-      localStorage.removeItem(loginCredentials)
+      localStorage.removeItem('loginCredentials');
       return false
     }
 
