@@ -30,3 +30,6 @@
 .follow-btn {
   margin-top: 1rem;
 }
+.mat-raised-button {
+  float: right;
+}

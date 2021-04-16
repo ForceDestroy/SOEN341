@@ -60,7 +60,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('userId', loginUserId);
 
         //Navigate to home page
-        this.router.navigate(['']);
+        this.router.navigate(['../../home/'+loginUserId]);
       }
     });
   }

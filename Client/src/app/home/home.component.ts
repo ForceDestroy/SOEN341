@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!this.verifyCanLogin()) {
+    if (this.verifyCanLogin()) {
       console.log("ERROR: Not logged in!");
       this.router.navigate(['../auth/login']);
     }
@@ -41,18 +41,7 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  // Author: Simarjit bilkhu
-  // Logout
-  logout() : void{
-    //Remove localStorage details of current active session
-    const loginCredentials = localStorage.getItem('loginCredentials');
-    localStorage.removeItem(loginCredentials);
 
-    //Navigate to login page
-    this.router.navigate(['../auth/login']);
-
-    console.log("Goodbye!");
-  }
 
   loadPageContent() {
     this.homeService.getFollowPosts(this.profileId).then((data) => {

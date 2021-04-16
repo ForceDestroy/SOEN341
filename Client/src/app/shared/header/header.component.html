@@ -1,6 +1,9 @@
 <div class="navbar">
     <mat-toolbar>
         <span style="margin-left: 5rem;">FinstaGram</span>
+        <button mat-raised-button mat-raised-button style="text-align: right;" color="primary"
+        (click)="logout()">Logout</button>
+
         <form class="search-form" style="margin-left: 16rem;">
             <mat-form-field style="width: 20rem;" floatLabel="never">
                <input class="toolbar-search" type="text" matInput #searchQuery [matMenuTriggerFor]="menu" (change)="search(searchQuery.value)" autocomplete="off">
@@ -13,7 +16,7 @@
                         {{user.username}}
                     </button>
                 </div>
-               </mat-menu>     
+               </mat-menu>
             </mat-form-field>
           </form>
         <span class="example-spacer"></span>

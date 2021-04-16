@@ -21,3 +21,7 @@
 ::ng-deep.mat-menu-panel {
     width: 25rem!important;
 }
+.mat-raised-button {
+  position: relative;
+  float: left;
+}

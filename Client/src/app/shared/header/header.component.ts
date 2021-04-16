@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HeaderService } from './header.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   searchQuery: string;
   users: any = [];
 
-  constructor(private headerService: HeaderService) {
+  constructor(private headerService: HeaderService, private router: Router) {
     this.userId = localStorage.getItem('userId');
    }
 
@@ -31,7 +32,20 @@ export class HeaderComponent implements OnInit {
     else{
       console.log('empty string');
     }
-    
+
+  }
+
+    // Author: Simarjit bilkhu
+  // Logout
+  logout() : void{
+    //Remove localStorage details of current active session
+    const loginCredentials = localStorage.getItem('loginCredentials');
+    localStorage.removeItem(loginCredentials);
+
+    //Navigate to login page
+    this.router.navigate(['../auth/login']);
+
+    console.log("Goodbye!");
   }
 
 }
