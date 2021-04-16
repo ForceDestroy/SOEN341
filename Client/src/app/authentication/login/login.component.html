@@ -1,0 +1,35 @@
+ <html>
+  <body>
+      <mat-card-header>
+        <mat-card-title>Login</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="userForm" >
+          <table cellspacing="0" >
+            <tr>
+              <td>
+                <mat-form-field>
+                  <input name="username" formControlName="username"
+                  matInput placeholder="username" required
+                  />
+                </mat-form-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+              <mat-form-field>
+                <input name="password" formControlName="password"
+                matInput placeholder="password" required
+                type="password"/>
+              </mat-form-field>
+            </td></tr>
+          </table>
+      </form>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button mat-raised-button color="primary"
+        (click)="login()">Login</button>
+        <span> Don't have an account? <a routerLink="../register">Register Here</a> </span>
+      </mat-card-actions>
+  </body>
+</html>

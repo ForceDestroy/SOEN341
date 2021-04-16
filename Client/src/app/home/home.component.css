@@ -1,0 +1,35 @@
+#profile-pic {
+  border-radius: 50%;
+  width: 12rem;
+  height: 12rem;
+  float: left;
+  display: inline-flex;
+  margin-left: 15rem;
+}
+
+.profile-header {
+  text-align: center;
+  margin-top: 4rem;
+}
+
+#username {
+  font-size: 2.5rem;
+  font-weight: 300;
+}
+
+.user-attr {
+  margin-left: 1rem;
+  font-size: 1rem;
+}
+
+.user-post {
+  width: 100%;
+  height: auto;
+}
+
+.follow-btn {
+  margin-top: 1rem;
+}
+.mat-raised-button {
+  float: right;
+}

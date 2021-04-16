@@ -1,0 +1,38 @@
+<div class="navbar">
+    <mat-toolbar>
+        <span style="margin-left: 5rem;">FinstaGram</span>
+        <form class="search-form" style="margin-left: 16rem;">
+            <mat-form-field style="width: 20rem;" floatLabel="never">
+               <input class="toolbar-search" type="text" matInput #searchQuery [matMenuTriggerFor]="menu" (change)="search(searchQuery.value)" autocomplete="off">
+               <mat-placeholder>Search</mat-placeholder>
+               <mat-icon matSuffix style="font-size: 1em" >search</mat-icon>
+               <mat-menu #menu="matMenu" style="width: 20rem;">
+                <div *ngFor="let user of users">
+                    <button mat-menu-item routerLink="/user/{{user.userId}}">
+                        <!-- <img class="userPic" src="{{user.profilePicture}}" alt="N/A"> -->
+                        {{user.username}}
+                    </button>
+                </div>
+               </mat-menu>
+            </mat-form-field>
+          </form>
+        <span class="example-spacer"></span>
+        <button mat-icon-button routerLink="/post/new">
+            <mat-icon>add_box</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/home/{{userId}}">
+            <mat-icon>home</mat-icon>
+        </button>
+        <button mat-icon-button routerLink="/user/{{userId}}">
+            <mat-icon>person</mat-icon>
+        </button>
+        <button style = "margin-right: 5rem;" mat-icon-button routerLink="/settings">
+            <mat-icon>settings</mat-icon>
+        </button>
+        <button mat-raised-button mat-raised-button color="warn"
+        (click)="logout()">Logout</button>
+    </mat-toolbar>
+    <mat-divider></mat-divider>
+</div>
+
+

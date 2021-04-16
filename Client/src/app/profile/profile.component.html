@@ -1,0 +1,22 @@
+<app-header></app-header>
+<div class="profile-header">
+    <img id="profile-pic" src="{{profilePicture}}" alt="N/A">
+    <h1 id="username">{{userName}}</h1>
+    <div>
+        <span class="user-attr">{{numPosts}} Posts</span>
+        <span class="user-attr">{{numFollowers}} followers</span>
+        <span class="user-attr">{{numFollowing}} following</span>
+    </div>
+    <button *ngIf="userId != profileId && !isFollowing" mat-raised-button class="follow-btn" (click)="follow()">FOLLOW</button>
+    <button *ngIf="userId != profileId && isFollowing" mat-raised-button class="follow-btn" (click)="unfollow()">FOLLOWING <mat-icon>done</mat-icon></button>
+</div>
+<mat-divider style="margin-top: 10rem;"></mat-divider>
+
+<div style="text-align: center; justify-content: center; display: block;">
+    <mat-grid-list cols="3" rowHeight="2:1">
+        <mat-grid-tile *ngFor="let post of posts">
+            <img class="user-post" src="{{post.image}}" alt="N/A" layout-fill routerLink="/post/{{post.postId}}">
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>
+

@@ -1,0 +1,37 @@
+<app-header></app-header>
+
+<div class="main-div">
+    <mat-card class="user-post">
+        <mat-card-header>
+          <div routerLink="/user/{{postUserId}}" mat-card-avatar style="background-image: url({{postProfilePicture}});"class="profile-pic"></div>
+          <mat-card-title>{{postUsername}}</mat-card-title>
+          <mat-card-subtitle>User</mat-card-subtitle>
+        </mat-card-header>
+        <img id="post-picture" mat-card-image src={{postPicture}}>
+        <mat-card-content>
+          <p><strong>{{numLikes}} Likes<span id="numOfHearts">{{numHearts}} Hearts</span></strong></p>
+          <p>
+            {{postCaption}}
+          </p>
+        </mat-card-content>
+        <mat-card-actions>
+          <button *ngIf="!postLiked" mat-button color="primary" (click)="likePost()"><mat-icon>thumb_up_off_alt</mat-icon></button>
+          <button *ngIf="postLiked" mat-button color="primary" (click)="likePost()"><mat-icon>thumb_up_off</mat-icon></button>
+          <button *ngIf="!postHearted"mat-button color="warn" (click)="heartPost()"><mat-icon>favorite_border</mat-icon></button>
+          <button *ngIf="postHearted" mat-button color="warn" (click)="heartPost()"><mat-icon>favorite</mat-icon></button>
+        </mat-card-actions>
+    </mat-card>
+    <mat-card class="comment-section">
+        <mat-card-header style="justify-content: center; margin-bottom: 2rem;">
+          <mat-card-title>Comments</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <p *ngFor="let comment of postComments"><strong>{{comment.username}}</strong> {{comment.content}}</p>
+        </mat-card-content>
+          <mat-form-field class="comment-input">
+            <mat-label>Leave a comment</mat-label>
+            <input matInput [(ngModel)]="userComment">
+          </mat-form-field>
+          <button mat-raised-button class="comment-btn" (click)="addComment(userComment)">POST</button>
+    </mat-card>
+</div>

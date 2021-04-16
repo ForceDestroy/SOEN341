@@ -1,0 +1,15 @@
+<app-header></app-header>
+<div class="main-div">
+    <h1 id="new-post">New Post</h1>
+
+    <form class="add-form" [formGroup]="postForm" ngSubmit="createPostObject()">
+        <div>
+            <input type="file" formControlName="imageFileCtrl" (change)="createFileUrl($event)">
+        </div>
+        <mat-form-field class="form-input">
+          <mat-label>Caption</mat-label>
+          <textarea matInput formControlName="captionCtrl" required></textarea>
+        </mat-form-field>
+    </form>
+    <button class="share-btn" mat-raised-button (click)="createPostObject()">SHARE</button>
+</div>
